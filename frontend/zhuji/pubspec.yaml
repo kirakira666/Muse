@@ -36,6 +36,8 @@ dependencies:
   path_provider: ^0.5.0+1
   english_words: ^3.1.0
   fluttertoast: ^3.0.3
+  http: ^0.11.3+16
+  quantize_dart: ^1.0.3
 
 dev_dependencies:
   flutter_test:

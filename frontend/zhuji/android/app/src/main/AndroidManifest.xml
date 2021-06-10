@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zhuji">
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="zhuji"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
