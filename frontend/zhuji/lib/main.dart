@@ -196,6 +196,7 @@
 //   }
 // }
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'HttpUtil.dart';
 import 'dart:io';
@@ -203,15 +204,19 @@ import 'package:cloudbase_core/cloudbase_core.dart';
 import 'package:cloudbase_auth/cloudbase_auth.dart';
 import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:cloudbase_function/cloudbase_function.dart';
+import 'package:zhuji/color_thief_flutter.dart';
+import 'package:zhuji/utils.dart';
 import 'package:cloudbase_storage/cloudbase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void main(){
+void main() {
   runApp(new MaterialApp(
     title: 'input',
     home: new Scaffold(
-      appBar: new AppBar(title: new Text('输入事件'),),
+      appBar: new AppBar(
+        title: new Text('muse'),
+      ),
       body: new MyWeather(),
     ),
   ));
@@ -225,41 +230,48 @@ class MyWeather extends StatefulWidget {
   }
 }
 
-class MyWeatherState extends State<MyWeather> with NetListener{
+class MyWeatherState extends State<MyWeather> with NetListener {
   var weather = 'delay';
+  var imgUrl = 'https://picsum.photos/580/600/?image=' + '269';
   HttpManager httpManager = new HttpManager();
-
+  var backA = 150;
+  var backR = 256;
+  var backG = 256;
+  var backB = 256;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return new Container(
+      decoration: new BoxDecoration(
+        color: Color.fromARGB(backA, backR, backG, backB),
+      ),
       child: new Column(
         children: <Widget>[
           new RaisedButton(
               child: new Text('三天的预报'),
-              onPressed: (){
+              onPressed: () {
                 _getWeatherForecast();
               }),
           new RaisedButton(
               child: new Text('获取实时天气'),
-              onPressed: (){
+              onPressed: () {
                 _getWeatherNewWeather();
               }),
           new Expanded(
               child: new Center(
-                child: new ListView(
-                  children: <Widget>[
-                    new Text('$weather'),
-                    new Image.network(
-                      //图片地址
-                      'https://www.zyzw.com/sjmhxs/sjmhxst/sjmhxst002.jpg',
-                      //填充模式
-                      fit: BoxFit.fitWidth,
-                    )
-                  ],
-                ),
-              )
-          )
+            child: new ListView(
+              children: <Widget>[
+                new Text('$weather'),
+                new Image.network(
+                  //图片地址
+                  '$imgUrl',
+                  //填充模式
+                  fit: BoxFit.fitWidth,
+                )
+              ],
+            ),
+          ))
         ],
       ),
     );
@@ -285,6 +297,61 @@ class MyWeatherState extends State<MyWeather> with NetListener{
    */
   @override
   Future<void> onNewWeatherResponse(String body) async {
+
+    String scopeF = '123456789'; //首位
+    String scopeC = '0123456789'; //中间
+    String result = '';
+    for (int i = 0; i < 3; i++) {
+      if (i == 0) {
+        result = scopeF[Random().nextInt(scopeF.length)];
+      } else {
+        result = result + scopeC[Random().nextInt(scopeC.length)];
+      }
+    }
+    final url = 'https://picsum.photos/580/600/?image=' + result;
+    imgUrl = url;
+    final imageProvider = NetworkImage(url);
+    // 提取网络图片的主要颜色
+    getColorFromUrl(url).then((color) {
+      print('主要颜色');
+      print(color); // [R,G,B]
+      backR = color[0];
+      backG = color[1];
+      backB = color[2];
+      setState(() {});
+    });
+    // 提取网络图片调色板
+    getPaletteFromUrl(url).then((palette) {
+      print('调色板');
+      print(palette); // [[R,G,B]]
+    });
+    // 提取网络图片的实际图片
+    getImageFromUrl(url).then((image) {
+      print(image); // Image
+    });
+    // 提取 ImageProvider 的实际图片
+    getImageFromProvider(imageProvider).then((image) {
+      print(image); // Image
+      // 从图片提取主要颜色
+      getColorFromImage(image).then((color) {
+        print('主要颜色');
+        print(color); // [R,G,B]
+      });
+      // 从图片提取调色板
+      getPaletteFromImage(image).then((palette) {
+        print('调色板');
+        print(palette); // [[R,G,B]]
+      });
+    });
+
+    // utils.dart
+    // RGB 转换为 HSV
+    final hsv = fromRGBtoHSV([90, 90, 90]);
+    print(hsv); // [H,S,V]
+    // HSV 转换为 RGB
+    final rgb = fromHSVtoRGB([90, 90, 90]);
+    print(rgb); // [R,B,G]
+
     CloudBaseCore core = CloudBaseCore.init({
       // 填写您的云开发 env
       'env': 'zhuji-cloudbase-3g9902drd47633ab',
@@ -358,5 +425,4 @@ class MyWeatherState extends State<MyWeather> with NetListener{
     print(body);
     setState(() {});
   }
-
 }
