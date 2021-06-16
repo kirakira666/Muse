@@ -7,16 +7,15 @@ import 'package:smart_flare/enums.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
-import 'package:muse/detail.dart';
 
-class Square extends StatefulWidget {
-  const Square({Key? key}) : super(key: key);
+class Detail extends StatefulWidget {
+  const Detail({Key? key}) : super(key: key);
 
   @override
-  _SquareState createState() => _SquareState();
+  _DetailState createState() => _DetailState();
 }
 
-class _SquareState extends State<Square> {
+class _DetailState extends State<Detail> {
   void _jumpDetailPage() {
     Navigator.pushAndRemoveUntil(
         context,
@@ -77,7 +76,7 @@ class _SquareState extends State<Square> {
             // child: _rootBack(),
             child: Container(
               child: Text(
-                'SQUARE',
+                'Deatil',
                 style: TextStyle(
                     color: Color.fromARGB(255, 19, 22, 64),
                     height: 4,

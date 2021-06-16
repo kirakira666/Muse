@@ -7,21 +7,21 @@ import 'package:smart_flare/enums.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
-import 'package:muse/detail.dart';
+import 'package:muse/square.dart';
 
-class Square extends StatefulWidget {
-  const Square({Key? key}) : super(key: key);
+class RootPage extends StatefulWidget {
+  const RootPage({Key? key}) : super(key: key);
 
   @override
-  _SquareState createState() => _SquareState();
+  _RootPageState createState() => _RootPageState();
 }
 
-class _SquareState extends State<Square> {
-  void _jumpDetailPage() {
+class _RootPageState extends State<RootPage> {
+  void _jumpRootPage() {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => Detail(),
+          builder: (BuildContext context) => Square(),
         ),
             (route) => false);
   }
@@ -39,8 +39,8 @@ class _SquareState extends State<Square> {
           guardComingFrom: ['deactivate'],
           animationName: 'camera_tapped',
           onAreaTapped: () {
-            print('Detail tapped!');
-            _jumpDetailPage();
+            print('Camera tapped!');
+            _jumpRootPage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds,
@@ -50,7 +50,6 @@ class _SquareState extends State<Square> {
           animationName: 'pulse_tapped',
           onAreaTapped: () {
             print('Pulse tapped!');
-            _jumpDetailPage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds,
@@ -74,38 +73,28 @@ class _SquareState extends State<Square> {
       body: Stack(
         children: [
           Positioned(
-            // child: _rootBack(),
-            child: Container(
-              child: Text(
-                'SQUARE',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 19, 22, 64),
-                    height: 4,
-                    fontWeight: FontWeight.w100,
-                    fontSize: 28),
-              ),
+            child: _rootBack(),
+          ),
+          Positioned(
+            bottom: MediaQuery.of(context).padding.bottom + 10,
+            left: 10,
+            child: InkWell(
+              child: _goShow(),
+              onTap: () {
+                print('show');
+              },
             ),
           ),
-          // Positioned(
-          //   bottom: MediaQuery.of(context).padding.bottom + 10,
-          //   left: 10,
-          //   child: InkWell(
-          //     child: _goShow(),
-          //     onTap: () {
-          //       print('show');
-          //     },
-          //   ),
-          // ),
-          // Positioned(
-          //   bottom: MediaQuery.of(context).padding.bottom + 10,
-          //   right: 10,
-          //   child: InkWell(
-          //     child: _goFind(),
-          //     onTap: () {
-          //       print('find');
-          //     },
-          //   ),
-          // ),
+          Positioned(
+            bottom: MediaQuery.of(context).padding.bottom + 10,
+            right: 10,
+            child: InkWell(
+              child: _goFind(),
+              onTap: () {
+                print('find');
+              },
+            ),
+          ),
           // Align(
           //   alignment: Alignment.centerRight,
           //   child: PanFlareActor(
