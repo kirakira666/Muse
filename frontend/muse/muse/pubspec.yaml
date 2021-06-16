@@ -38,6 +38,10 @@ dependencies:
   fluttertoast: ^3.0.3
   http: ^0.11.3+16
   quantize_dart: ^1.0.3
+  flare_flutter: ^2.0.4  # flare 插件
+  smart_flare: any  #
+  flutter_riverpod: ^0.12.1
+
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +62,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
+  assets:
+    - images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
