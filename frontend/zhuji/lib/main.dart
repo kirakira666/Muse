@@ -204,15 +204,15 @@ import 'package:cloudbase_core/cloudbase_core.dart';
 import 'package:cloudbase_auth/cloudbase_auth.dart';
 import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:cloudbase_function/cloudbase_function.dart';
-import 'package:muse/color_thief_flutter.dart';
-import 'package:muse/utils.dart';
+import 'package:zhuji/color_thief_flutter.dart';
+import 'package:zhuji/utils.dart';
 import 'package:cloudbase_storage/cloudbase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(new MaterialApp(
-    title: 'muse',
+    title: 'input',
     home: new Scaffold(
       appBar: new AppBar(
         title: new Text('muse'),
@@ -248,30 +248,30 @@ class MyWeatherState extends State<MyWeather> with NetListener {
       ),
       child: new Column(
         children: <Widget>[
-          // new RaisedButton(
-          //     child: new Text('三天的预报'),
-          //     onPressed: () {
-          //       _getWeatherForecast();
-          //     }),
           new RaisedButton(
-              child: new Text('刷新图片'),
+              child: new Text('三天的预报'),
+              onPressed: () {
+                _getWeatherForecast();
+              }),
+          new RaisedButton(
+              child: new Text('获取实时天气'),
               onPressed: () {
                 _getWeatherNewWeather();
               }),
           new Expanded(
               child: new Center(
-                child: new ListView(
-                  children: <Widget>[
-                    // new Text('$weather'),
-                    new Image.network(
-                      //图片地址
-                      '$imgUrl',
-                      //填充模式
-                      fit: BoxFit.fitWidth,
-                    )
-                  ],
-                ),
-              ))
+            child: new ListView(
+              children: <Widget>[
+                new Text('$weather'),
+                new Image.network(
+                  //图片地址
+                  '$imgUrl',
+                  //填充模式
+                  fit: BoxFit.fitWidth,
+                )
+              ],
+            ),
+          ))
         ],
       ),
     );
@@ -359,7 +359,7 @@ class MyWeatherState extends State<MyWeather> with NetListener {
       // 生成凭证的应用标识必须是 Android 包名或者 iOS BundleID
       'appAccess': {
         // 凭证
-        'key': 'e6f33326a0d40fecfc67ffc2877255bc',
+        'key': '5fec06cf15598021bbbf79758129b41d',
         // 版本
         'version': '1'
       },
