@@ -17,12 +17,11 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   void _jumpDetailPage() {
-    Navigator.pushAndRemoveUntil(
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => Detail(),
-        ),
-            (route) => false);
+        ));
   }
   @override
   Widget build(BuildContext context) {

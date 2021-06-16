@@ -9,6 +9,8 @@ import 'package:smart_flare/enums.dart';
 import 'package:smart_flare/models.dart';
 import 'package:muse/detail.dart';
 
+import 'login.dart';
+
 class Square extends StatefulWidget {
   const Square({Key? key}) : super(key: key);
 
@@ -18,12 +20,18 @@ class Square extends StatefulWidget {
 
 class _SquareState extends State<Square> {
   void _jumpDetailPage() {
-    Navigator.pushAndRemoveUntil(
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => Detail(),
-        ),
-            (route) => false);
+        ));
+  }
+  void _jumpLoginPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => Login())
+        );
   }
   @override
   Widget build(BuildContext context) {
@@ -49,8 +57,8 @@ class _SquareState extends State<Square> {
           guardComingFrom: ['deactivate'],
           animationName: 'pulse_tapped',
           onAreaTapped: () {
-            print('Pulse tapped!');
-            _jumpDetailPage();
+            print('Login tapped!');
+            _jumpLoginPage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds,

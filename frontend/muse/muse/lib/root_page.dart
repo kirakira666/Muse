@@ -18,12 +18,11 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   void _jumpRootPage() {
-    Navigator.pushAndRemoveUntil(
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => Square(),
-        ),
-            (route) => false);
+        ));
   }
   @override
   Widget build(BuildContext context) {
