@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muse/page/app_size_extension.dart';
 import 'package:muse/page/login_page.dart';
+import 'package:muse/page/sign_up_page.dart';
 import 'package:muse/theme/app_colors.dart';
 import 'package:muse/widgets/welcome_widget.dart';
 
@@ -47,7 +48,13 @@ class WelcomeFooterWidget extends StatelessWidget {
       children: [
         GradientBtnWidget(
           width: 208,
-          onTap: () {  },
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return SignUpPage();
+              },
+            ));
+          },
           child: BtnTextWhiteWidget(
             text: 'Sign up',
           ),
