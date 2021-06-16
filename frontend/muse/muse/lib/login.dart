@@ -24,6 +24,7 @@ class _LoginState extends State<Login> {
         ),
             (route) => false);
   }
+
   @override
   Widget build(BuildContext context) {
     var animationWidth = 295.0;

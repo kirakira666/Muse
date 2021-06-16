@@ -1,9 +1,15 @@
 import 'dart:math';
 
+import 'package:cloudbase_auth/cloudbase_auth.dart';
+import 'package:cloudbase_core/cloudbase_core.dart';
+import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
 import 'package:muse/widgets/welcome_widget.dart';
+
+import '../storage_util.dart';
 
 
 ///登录页面剪裁曲线
@@ -51,12 +57,122 @@ class LoginClipper extends CustomClipper<Path> {
     return this.hashCode != oldClipper.hashCode;
   }
 }
-String text = '4444';
+String isSE = '';
+String username = '';
+bool hhh = false;
+String pwd = '';
+var backA = 150;
+var backR = 256;
+var backG = 256;
+var backB = 256;
+CloudBaseCore core = CloudBaseCore.init({
+  // 填写您的云开发 env
+  'env': 'zhuji-cloudbase-3g9902drd47633ab',
+  // 填写您的移动应用安全来源凭证
+  // 生成凭证的应用标识必须是 Android 包名或者 iOS BundleID
+  'appAccess': {
+    // 凭证
+    'key': 'e6f33326a0d40fecfc67ffc2877255bc',
+    // 版本
+    'version': '1'
+  },
+  // 请求超时时间（选填）
+  'timeout': 3000
+});
+CloudBaseAuth auth = CloudBaseAuth(core);
+CloudBaseDatabase db = CloudBaseDatabase(core);
+
+String text = '';
 /// 登录图标按钮
 class LoginBtnIconWidget extends StatelessWidget {
   const LoginBtnIconWidget({
     Key? key,
   }) : super(key: key);
+
+  Future<void> _login() async {
+    String token =
+    await StorageUtil.getStringItem('username');
+    if (token != null) {
+      // 跳转到首页
+      print('denglul');
+      Fluttertoast.showToast(
+          msg: "已经登录",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
+    } else {
+      // 跳转到登陆页面
+      CloudBaseAuthState authState = await auth.getAuthState();
+      if (authState == null) {
+        await auth.signInAnonymously().then((success) {
+          // 登录成功
+          print('mm成功');
+        }).catchError((err) {
+          // 登录失败
+          print('mm失败');
+        });
+      }
+      var _ = db.command;
+      // StorageUtil.clear();
+      db.collection('user').where({
+        'username': _.eq(username)
+      }).get().then((res) {
+        hhh = false;
+        print(res);
+        if(res.data==[]){
+          Fluttertoast.showToast(
+              msg: "用户名不存在",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.blue,
+              textColor: Colors.white,
+              fontSize: 13.0
+          );
+        }else{
+          if(res.data[0]['pwd']==pwd){
+            print('成功登录');
+            Fluttertoast.showToast(
+                msg: "成功登录",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.blue,
+                textColor: Colors.white,
+                fontSize: 13.0
+            );
+            StorageUtil.setStringItem('username', username);
+            StorageUtil.setStringItem('pwd', pwd);
+          }else{
+            print('用户名或密码错误');
+            // this. = res.id;
+            Fluttertoast.showToast(
+                msg: "用户名或密码错误",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.blue,
+                textColor: Colors.white,
+                fontSize: 13.0
+            );
+          }
+        }
+
+      }).catchError((e) {
+        print(e);
+        print('jk失败');
+      });
+      print('meidenglul');
+      // Navigator.pushReplacementNamed(context, "login");
+    }
+
+    // return isSe;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +196,12 @@ class LoginBtnIconWidget extends StatelessWidget {
               SizedBox(width: 24),
             ],
           ),
-          onTap: () {
-            print(text);
-            Navigator.pop(context);
-          },
+          // onTap: () {
+          //   print(username);
+          //   _login();
+          //   Navigator.pop(context);
+          // },
+          onTap: _login,
         )
       ],
     );
@@ -129,8 +247,10 @@ class LoginInput extends StatelessWidget {
       ),
       onChanged: (text){
         if(obscureText){
+          pwd = text;
           print('pwd,'+text);
         }else{
+          username = text;
           print('ema,'+text);
         }
 

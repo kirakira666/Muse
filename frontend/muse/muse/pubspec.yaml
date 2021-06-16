@@ -28,13 +28,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  provider: ^5.0.0
   cloudbase_core: ^0.0.11
   cloudbase_auth: ^0.0.11
   cloudbase_function: ^0.0.2
   cloudbase_storage: ^0.0.3
   cloudbase_database: ^0.0.10
-  path_provider: ^0.5.0+1
-  english_words: ^3.1.0
   fluttertoast: ^3.0.3
   http: ^0.11.3+16
   quantize_dart: ^1.0.3
@@ -42,6 +41,10 @@ dependencies:
   smart_flare: any  #
   flutter_riverpod: ^0.12.1
   groovin_material_icons: ^1.1.5
+  path_provider: ^1.6.9
+  shared_preferences: ^0.5.3+4
+
+
 
 
 dev_dependencies:

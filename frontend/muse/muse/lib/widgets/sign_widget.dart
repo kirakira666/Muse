@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
 import 'package:muse/widgets/welcome_widget.dart';
@@ -76,8 +77,9 @@ class SignClipper extends CustomClipper<Path> {
     return this.hashCode != oldClipper.hashCode;
   }
 }
-
+String isSE = '';
 String username = '';
+bool hhh = false;
 String pwd = '';
 var backA = 150;
 var backR = 256;
@@ -171,10 +173,37 @@ class SignBtnIconWidget extends StatelessWidget {
       'like':[],
       'collect':[]
     }).then((res) {
-      print(res);
+      hhh = false;
+      print(res.id);
+      if(res.id==null){
+        print('用户名占用');
+        Fluttertoast.showToast(
+            msg: "用户名已被占用",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 13.0
+        );
+      }else{
+        print('创建成功');
+        // this. = res.id;
+        hhh = true;
+        Fluttertoast.showToast(
+            msg: "创建成功",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 13.0
+        );
+      }
     }).catchError((e) {
       print('失败');
     });
+    // return isSe;
   }
 
   @override
@@ -199,7 +228,14 @@ class SignBtnIconWidget extends StatelessWidget {
                 SizedBox(width: 24),
               ],
             ),
-            onTap: _signUp)
+            onTap: (){
+              _signUp();
+              print('hhh');
+              if(hhh){
+                print('in');
+                Navigator.pop(context);
+              }
+            })
       ],
     );
   }
