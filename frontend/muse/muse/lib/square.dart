@@ -8,6 +8,7 @@ import 'package:smart_flare/enums.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
 import 'package:muse/detail.dart';
+import 'package:muse/login.dart';
 
 class Square extends StatefulWidget {
   const Square({Key? key}) : super(key: key);
@@ -22,6 +23,14 @@ class _SquareState extends State<Square> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => Detail(),
+        ),
+            (route) => false);
+  }
+  void _jumpLoginPage() {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => Login(),
         ),
             (route) => false);
   }
@@ -49,8 +58,8 @@ class _SquareState extends State<Square> {
           guardComingFrom: ['deactivate'],
           animationName: 'pulse_tapped',
           onAreaTapped: () {
-            print('Pulse tapped!');
-            _jumpDetailPage();
+            print('Login tapped!');
+            _jumpLoginPage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds,
