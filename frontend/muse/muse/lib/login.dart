@@ -7,7 +7,6 @@ import 'package:smart_flare/enums.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
-import 'package:muse/detail.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _LoginState extends State<Login> {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => Detail(),
+          builder: (BuildContext context) => Login(),
         ),
             (route) => false);
   }
@@ -77,7 +76,7 @@ class _LoginState extends State<Login> {
             // child: _rootBack(),
             child: Container(
               child: Text(
-                'login',
+                'Login',
                 style: TextStyle(
                     color: Color.fromARGB(255, 19, 22, 64),
                     height: 4,
@@ -86,44 +85,6 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          // Positioned(
-          //   bottom: MediaQuery.of(context).padding.bottom + 10,
-          //   left: 10,
-          //   child: InkWell(
-          //     child: _goShow(),
-          //     onTap: () {
-          //       print('show');
-          //     },
-          //   ),
-          // ),
-          // Positioned(
-          //   bottom: MediaQuery.of(context).padding.bottom + 10,
-          //   right: 10,
-          //   child: InkWell(
-          //     child: _goFind(),
-          //     onTap: () {
-          //       print('find');
-          //     },
-          //   ),
-          // ),
-          // Align(
-          //   alignment: Alignment.centerRight,
-          //   child: PanFlareActor(
-          //     width: MediaQuery.of(context).size.width / 2.366,
-          //     height: MediaQuery.of(context).size.height,
-          //     filename: 'images/slideout-menu.flr',
-          //     openAnimation: 'open',
-          //     closeAnimation: 'close',
-          //     direction: ActorAdvancingDirection.RightToLeft,
-          //     threshold: 20.0,
-          //     reverseOnRelease: true,
-          //     completeOnThresholdReached: true,
-          //     activeAreas: [
-          //       RelativePanArea(
-          //           area: Rect.fromLTWH(0, .7, 1.0, .3), debugArea: false),
-          //     ],
-          //   ),
-          // ),
           Align(
             alignment: Alignment.bottomCenter,
             child: SmartFlareActor(
@@ -202,72 +163,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-//
-// class _RootPageState extends State<RootPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     var animationWidth = 295.0;
-//     var animationHeight = 251.0;
-//     var animationWidthThirds = animationWidth / 3;
-//     var halfAnimationHeight = animationHeight / 2;
-//
-//     var activeAreas = [
-//
-//       ActiveArea(
-//         area: Rect.fromLTWH(0, 0, animationWidthThirds, halfAnimationHeight),
-//         debugArea: false,
-//         guardComingFrom: ['deactivate'],
-//         animationName: 'camera_tapped',
-//       ),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds, halfAnimationHeight),
-//           debugArea: false,
-//           guardComingFrom: ['deactivate'],
-//           animationName: 'pulse_tapped'),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds, halfAnimationHeight),
-//           debugArea: false,
-//           guardComingFrom: ['deactivate'],
-//           animationName: 'image_tapped'),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(0, animationHeight / 2, animationWidth, animationHeight / 2),
-//           debugArea: false,
-//           animationsToCycle: ['activate', 'deactivate'],
-//           onAreaTapped: () {
-//             print('Button tapped!');
-//           })
-//
-//     ];
-//
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Flare Button Demo'),
-//       ),
-//       body: Container(
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//               begin: Alignment.topCenter,
-//               end: Alignment.bottomCenter,
-//               colors: [
-//                 Color(0x3fffeb3b),
-//                 Colors.orange,
-//               ]),
-//         ),
-//         child: Align(
-//           alignment: Alignment.bottomCenter,
-//           child: SmartFlareActor(
-//             width: animationWidth,
-//             height: animationHeight,
-//             filename: 'images/button-animation.flr',
-//             startingAnimation: 'deactivate',
-//             activeAreas: activeAreas,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

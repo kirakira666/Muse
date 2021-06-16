@@ -8,8 +8,8 @@ import 'package:smart_flare/enums.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
 import 'package:muse/detail.dart';
-
-import 'login.dart';
+import 'package:muse/login.dart';
+import 'package:muse/page/welcome_page.dart';
 
 class Square extends StatefulWidget {
   const Square({Key? key}) : super(key: key);
@@ -30,8 +30,8 @@ class _SquareState extends State<Square> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => Login())
-        );
+          builder: (BuildContext context) => WelcomePage(),
+        ));
   }
   @override
   Widget build(BuildContext context) {

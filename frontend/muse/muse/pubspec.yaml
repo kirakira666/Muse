@@ -41,6 +41,7 @@ dependencies:
   flare_flutter: ^2.0.4  # flare 插件
   smart_flare: any  #
   flutter_riverpod: ^0.12.1
+  groovin_material_icons: ^1.1.5
 
 
 dev_dependencies:
@@ -64,6 +65,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - images/
+    - assets/icons/
+    - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
