@@ -331,10 +331,6 @@ class _ShareIdeaState extends State<ShareIdea> {
     }
     String token = await StorageUtil.getStringItem('username');
     var _ = db.command;
-    var o = {
-      'i':'ms',
-      '1':'hh'
-    };
     var time = new DateTime.now().millisecondsSinceEpoch;
     var urlL = [];
     print(time);
@@ -344,7 +340,7 @@ class _ShareIdeaState extends State<ShareIdea> {
       var list = _imageList[i].path.split('/');
       var filename = list[list.length-1];
       print(filename);
-      var urlPath = 'userIdea/$token/$time/$i.png';
+      var urlPath = 'userIdea/$token/$time/$filename';
       print(urlPath);
       urlL.add(urlPath);
       print(filepath);
@@ -360,14 +356,41 @@ class _ShareIdeaState extends State<ShareIdea> {
       );
       print('发表');
     }
+    var title = 1;
     db.collection('idea').add({
-      'username': token,
+      'title':'',
+      'popname': token,
       'time': time,
       'url': urlL,
-    }).then((res) {
-
-    }).catchError((e) {
-
+      'content': content,
+    }).then((res) async {
+      print(res);
+      if(res.id==null || res.code.indexOf('FAIL')>=0){
+        print('错误');
+        var cloudUrl = 'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
+        Fluttertoast.showToast(
+            msg: "发表失败！",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 13.0
+        );
+        CloudBaseStorageRes<List<DeleteMetadata>> res = await storage.deleteFiles([cloudUrl]);
+        print(res.data[0]);
+      }
+    }).catchError((e) async {
+      var cloudUrl = 'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
+      CloudBaseStorageRes<List<DeleteMetadata>> res = await storage.deleteFiles([cloudUrl]);
+      print(res.data[0]);
+      Fluttertoast.showToast(
+          msg: "发表失败！",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
     });
     // db.collection('user').where({
     //   'username': token
