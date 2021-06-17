@@ -101,7 +101,6 @@ class LoginBtnIconWidget extends StatelessWidget {
           msg: "已经登录",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1,
           backgroundColor: Colors.blue,
           textColor: Colors.white,
           fontSize: 13.0
@@ -130,7 +129,6 @@ class LoginBtnIconWidget extends StatelessWidget {
               msg: "用户名不存在",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
-              timeInSecForIos: 1,
               backgroundColor: Colors.blue,
               textColor: Colors.white,
               fontSize: 13.0
@@ -142,7 +140,6 @@ class LoginBtnIconWidget extends StatelessWidget {
                 msg: "成功登录",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
-                timeInSecForIos: 1,
                 backgroundColor: Colors.blue,
                 textColor: Colors.white,
                 fontSize: 13.0
@@ -162,7 +159,6 @@ class LoginBtnIconWidget extends StatelessWidget {
                 msg: "用户名或密码错误",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
-                timeInSecForIos: 1,
                 backgroundColor: Colors.blue,
                 textColor: Colors.white,
                 fontSize: 13.0
@@ -176,7 +172,6 @@ class LoginBtnIconWidget extends StatelessWidget {
             msg: "用户名不存在",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
-            timeInSecForIos: 1,
             backgroundColor: Colors.blue,
             textColor: Colors.white,
             fontSize: 13.0

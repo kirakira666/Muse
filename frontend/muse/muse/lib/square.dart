@@ -12,6 +12,7 @@ import 'package:smart_flare/models.dart';
 import 'package:muse/detail.dart';
 import 'package:muse/login.dart';
 import 'package:muse/page/welcome_page.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Square extends StatefulWidget {
   const Square({Key? key}) : super(key: key);
@@ -38,7 +39,6 @@ class _SquareState extends State<Square> {
           msg: "已经登录！",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1,
           backgroundColor: Colors.blue,
           textColor: Colors.white,
           fontSize: 13.0
@@ -65,7 +65,6 @@ class _SquareState extends State<Square> {
           msg: "退出登录！",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1,
           backgroundColor: Colors.blue,
           textColor: Colors.white,
           fontSize: 13.0
@@ -75,7 +74,6 @@ class _SquareState extends State<Square> {
           msg: "当前处于未登陆状态！",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1,
           backgroundColor: Colors.blue,
           textColor: Colors.white,
           fontSize: 13.0

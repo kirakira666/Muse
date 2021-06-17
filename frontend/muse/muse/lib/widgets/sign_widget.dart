@@ -186,7 +186,6 @@ class SignBtnIconWidget extends StatelessWidget {
             msg: "用户名已被占用",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
-            timeInSecForIos: 1,
             backgroundColor: Colors.blue,
             textColor: Colors.white,
             fontSize: 13.0
@@ -199,7 +198,6 @@ class SignBtnIconWidget extends StatelessWidget {
             msg: "创建成功，请登录！",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
-            timeInSecForIos: 1,
             backgroundColor: Colors.blue,
             textColor: Colors.white,
             fontSize: 13.0
@@ -216,7 +214,6 @@ class SignBtnIconWidget extends StatelessWidget {
           msg: "注册失败！",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1,
           backgroundColor: Colors.blue,
           textColor: Colors.white,
           fontSize: 13.0

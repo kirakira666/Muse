@@ -34,15 +34,16 @@ dependencies:
   cloudbase_function: ^0.0.2
   cloudbase_storage: ^0.0.3
   cloudbase_database: ^0.0.10
-  fluttertoast: ^3.0.3
-  http: ^0.11.3+16
+  fluttertoast: ^8.0.7
+  http: ^0.12.2
   quantize_dart: ^1.0.3
   flare_flutter: ^2.0.4  # flare 插件
   smart_flare: any  #
-  flutter_riverpod: ^0.12.1
+  flutter_riverpod: ^0.14.0+3
   groovin_material_icons: ^1.1.5
   path_provider: ^1.6.9
   shared_preferences: ^0.5.3+4
+  image_picker: ^0.6.7+22
 
 
 

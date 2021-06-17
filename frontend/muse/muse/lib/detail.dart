@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:muse/page/welcome_page.dart';
+import 'package:muse/share_idea.dart';
+import 'package:muse/storage_util.dart';
 import 'package:smart_flare/actors/pan_flare_actor.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -16,12 +20,31 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
-  void _jumpDetailPage() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => Detail(),
-        ));
+  Future<void> _jumpShareIdeaPage() async {
+    String token =
+        await StorageUtil.getStringItem('username');
+    if (token != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => ShareIdea(),
+          ));
+    } else {
+      Fluttertoast.showToast(
+          msg: "请先登录",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => WelcomePage(),
+          ));
+    }
+
   }
   @override
   Widget build(BuildContext context) {
@@ -38,7 +61,7 @@ class _DetailState extends State<Detail> {
           animationName: 'camera_tapped',
           onAreaTapped: () {
             print('Detail tapped!');
-            _jumpDetailPage();
+            _jumpShareIdeaPage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds,
@@ -48,7 +71,7 @@ class _DetailState extends State<Detail> {
           animationName: 'pulse_tapped',
           onAreaTapped: () {
             print('Pulse tapped!');
-            _jumpDetailPage();
+            // _jumpDetailPage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds,
