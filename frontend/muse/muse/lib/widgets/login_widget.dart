@@ -9,6 +9,7 @@ import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
 import 'package:muse/widgets/welcome_widget.dart';
 
+import '../square.dart';
 import '../storage_util.dart';
 
 
@@ -61,6 +62,7 @@ String isSE = '';
 String username = '';
 bool hhh = false;
 String pwd = '';
+var context1 = null;
 var backA = 150;
 var backR = 256;
 var backG = 256;
@@ -147,6 +149,12 @@ class LoginBtnIconWidget extends StatelessWidget {
             );
             StorageUtil.setStringItem('username', username);
             StorageUtil.setStringItem('pwd', pwd);
+            Navigator.pushAndRemoveUntil(
+                context1,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Square(),
+                ),
+                    (route) => false);
           }else{
             print('用户名或密码错误');
             // this. = res.id;
@@ -164,7 +172,15 @@ class LoginBtnIconWidget extends StatelessWidget {
 
       }).catchError((e) {
         print(e);
-        print('jk失败');
+        Fluttertoast.showToast(
+            msg: "用户名不存在",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 13.0
+        );
       });
       print('meidenglul');
       // Navigator.pushReplacementNamed(context, "login");
@@ -176,6 +192,7 @@ class LoginBtnIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context1 = context;
     return Row(
       children: [
         Spacer(),

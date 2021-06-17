@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:muse/storage_util.dart';
 import 'package:smart_flare/actors/pan_flare_actor.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -26,12 +28,59 @@ class _SquareState extends State<Square> {
           builder: (BuildContext context) => Detail(),
         ));
   }
-  void _jumpLoginPage() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => WelcomePage(),
-        ));
+  Future<void> _jumpLoginPage() async {
+    String token =
+        await StorageUtil.getStringItem('username');
+    if (token != null) {
+      // 跳转到首页
+      print('yijdl');
+      Fluttertoast.showToast(
+          msg: "已经登录！",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
+    } else {
+      // 跳转到登陆页面
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => WelcomePage(),
+          ));
+    }
+
+  }
+  Future<void> _logout() async {
+    String token =
+        await StorageUtil.getStringItem('username');
+    if (token != null) {
+      // 跳转到首页
+      print('yijdl');
+      StorageUtil.remove('username');
+      StorageUtil.remove('pwd');
+      Fluttertoast.showToast(
+          msg: "退出登录！",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
+    } else {
+      Fluttertoast.showToast(
+          msg: "当前处于未登陆状态！",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -67,7 +116,8 @@ class _SquareState extends State<Square> {
           guardComingFrom: ['deactivate'],
           animationName: 'image_tapped',
           onAreaTapped: () {
-            print('Button tapped!');
+            print('log out!');
+            _logout();
           }),
       ActiveArea(
           area: Rect.fromLTWH(

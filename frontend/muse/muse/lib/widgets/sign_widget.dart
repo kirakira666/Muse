@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:muse/page/login_page.dart';
 import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
 import 'package:muse/widgets/welcome_widget.dart';
@@ -10,6 +11,9 @@ import 'package:cloudbase_auth/cloudbase_auth.dart';
 import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:cloudbase_function/cloudbase_function.dart';
 import 'package:muse/color_thief_flutter.dart';
+
+
+
 
 ///登录页面剪裁曲线
 class SignClipper extends CustomClipper<Path> {
@@ -81,6 +85,7 @@ String isSE = '';
 String username = '';
 bool hhh = false;
 String pwd = '';
+var context1 = null;
 var backA = 150;
 var backR = 256;
 var backG = 256;
@@ -187,11 +192,11 @@ class SignBtnIconWidget extends StatelessWidget {
             fontSize: 13.0
         );
       }else{
-        print('创建成功');
+        print('注册成功');
         // this. = res.id;
         hhh = true;
         Fluttertoast.showToast(
-            msg: "创建成功",
+            msg: "创建成功，请登录！",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIos: 1,
@@ -199,15 +204,30 @@ class SignBtnIconWidget extends StatelessWidget {
             textColor: Colors.white,
             fontSize: 13.0
         );
+        Navigator.pushAndRemoveUntil(
+            context1,
+            MaterialPageRoute(
+              builder: (BuildContext context) => LoginPage(),
+            ),
+                (route) => false);
       }
     }).catchError((e) {
-      print('失败');
+      Fluttertoast.showToast(
+          msg: "注册失败！",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
     });
     // return isSe;
   }
 
   @override
   Widget build(BuildContext context) {
+    context1 = context;
     return Row(
       children: [
         Spacer(),
@@ -230,11 +250,6 @@ class SignBtnIconWidget extends StatelessWidget {
             ),
             onTap: (){
               _signUp();
-              print('hhh');
-              if(hhh){
-                print('in');
-                Navigator.pop(context);
-              }
             })
       ],
     );
