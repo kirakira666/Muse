@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:muse/share_idea.dart';
 import 'package:muse/storage_util.dart';
 import 'package:smart_flare/actors/pan_flare_actor.dart';
 
@@ -21,12 +22,44 @@ class Square extends StatefulWidget {
 }
 
 class _SquareState extends State<Square> {
-  void _jumpDetailPage() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => Detail(),
-        ));
+  Future<void> _jumpDetailPage() async {
+    String token =
+        await StorageUtil.getStringItem('username');
+    if (token != null) {
+      // 跳转到showIdea
+      print('yijdl');
+      Fluttertoast.showToast(
+          msg: "已经登录！",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => ShareIdea(),
+          ));
+    } else {
+      Fluttertoast.showToast(
+          msg: "请先登录！",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 13.0
+      );
+      // 跳转到登陆页面
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => WelcomePage(),
+          ));
+    }
+
   }
   Future<void> _jumpLoginPage() async {
     String token =

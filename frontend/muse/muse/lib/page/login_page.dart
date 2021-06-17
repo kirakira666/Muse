@@ -72,12 +72,12 @@ class LoginBodyWidget extends StatelessWidget {
           ),
           SizedBox(height: 20.spH()),
           Text(
-            'Your Email',
+            'Your Username',
             style: kBodyTextStyle,
           ),
           SizedBox(height: 4.spH()),
           LoginInput(
-            hintText: 'Email',
+            hintText: 'Username',
             prefixIcon: 'assets/icons/icon_email.png',
           ),
           SizedBox(height: 16.spH()),
