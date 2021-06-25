@@ -4,13 +4,18 @@ import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:cloudbase_storage/cloudbase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:muse/square.dart';
+
 import 'package:muse/storage_util.dart';
+import 'package:muse/test.dart';
+import 'package:muse/theme/app_size.dart';
+import 'package:muse/theme/app_style.dart';
 import 'package:smart_flare/actors/pan_flare_actor.dart';
+import 'dart:io';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/actors/smart_flare_actor.dart';
 import 'package:smart_flare/enums.dart';
+import 'package:tflite/tflite.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
@@ -27,63 +32,11 @@ class ShareIdea extends StatefulWidget {
 }
 
 class _ShareIdeaState extends State<ShareIdea> {
+  bool obscureText = false;
+  String username = '';
+  bool hhh = false;
+  String pwd = '';
   var content = 'hhh';
-  void _jumpDetailPage() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => Detail(),
-        ));
-  }
-
-  Future<void> _jumpLoginPage() async {
-    String token = await StorageUtil.getStringItem('username');
-    if (token != null) {
-      // 跳转到首页
-      print('yijdl');
-      Fluttertoast.showToast(
-          msg: "已经登录！",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white,
-          fontSize: 13.0);
-    } else {
-      // 跳转到登陆页面
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => WelcomePage(),
-          ));
-    }
-  }
-
-  Future<void> _logout() async {
-    String token = await StorageUtil.getStringItem('username');
-    if (token != null) {
-      // 跳转到首页
-      print('yijdl');
-      StorageUtil.remove('username');
-      StorageUtil.remove('pwd');
-      Fluttertoast.showToast(
-          msg: "退出登录！",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white,
-          fontSize: 13.0);
-    } else {
-      Fluttertoast.showToast(
-          msg: "当前处于未登陆状态！",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white,
-          fontSize: 13.0);
-    }
-  }
-
-  var _imgPath;
   List _imageList = []; //图片列表
   int _photoIndex = 0; //选择拍照还是相册的索引
   List _actionSheet = [
@@ -93,46 +46,51 @@ class _ShareIdeaState extends State<ShareIdea> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: Stack(
-        children: [
-          // Positioned(
-          //   // child: _rootBack(),
-          //   child: Container(
-          //     child: Text(
-          //       'SHARE',
-          //       style: TextStyle(
-          //           color: Color.fromARGB(255, 19, 22, 64),
-          //           height: 4,
-          //           fontWeight: FontWeight.w100,
-          //           fontSize: 28),
-          //     ),
-          //   ),
-          // ),
-          Positioned(
-            // child: _rootBack(),
-            top: MediaQuery.of(context).padding.top + 60,
-            child: Column(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("拍照"),
-                  onPressed: () => _getActionSheet(),
-                ),
-                RaisedButton(
-                  child: Text("提交"),
-                  onPressed: () => {_pushDB()},
-                ),
-                Text("----照片列表----"),
-                _imageList.isNotEmpty
-                    ? Wrap(
+      body: Column(
+        children: <Widget>[
+          TextField(
+            decoration: InputDecoration(
+              hintText: 'hintText',
+              border: kInputBorder,
+              focusedBorder: kInputBorder,
+              enabledBorder: kInputBorder,
+              prefixIcon: Container(
+                width: kIconBoxSize,
+                height: kIconBoxSize,
+                alignment: Alignment.center,
+              ),
+            ),
+            obscuringCharacter: '*',
+            obscureText: obscureText,
+            style: kBodyTextStyle.copyWith(
+              fontSize: 18,
+            ),
+            onChanged: (text) {
+              if (obscureText) {
+                print('pwd,' + text);
+                content = text;
+              } else {
+                content = text;
+                print('ema,' + text);
+              }
+            },
+          ),
+          RaisedButton(
+            child: Text("拍照"),
+            onPressed: () => _getActionSheet(),
+          ),
+          RaisedButton(
+            child: Text("提交"),
+            onPressed: () => {_pushDB()},
+          ),
+          Text("----照片列表----"),
+          _imageList.isNotEmpty
+              ? Wrap(
                   spacing: 10.0,
                   children: _getImageList(),
                 )
-                    : Text("暂无内容")
-              ],
-            ),
-          ),
+              : Text("暂无内容")
         ],
       ),
     );
@@ -238,8 +196,7 @@ class _ShareIdeaState extends State<ShareIdea> {
 
   Future _getImage() async {
     Navigator.of(context).pop();
-    var image = await ImagePicker.pickImage(
-        source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     //没有选择图片或者没有拍照
     if (image != null) {
@@ -282,11 +239,11 @@ class _ShareIdeaState extends State<ShareIdea> {
     var time = new DateTime.now().millisecondsSinceEpoch;
     var urlL = [];
     print(time);
-    for(int i = 0;i<_imageList.length;++i){
+    for (int i = 0; i < _imageList.length; ++i) {
       print(_imageList[i].path);
       var filepath = _imageList[i].path;
       var list = _imageList[i].path.split('/');
-      var filename = list[list.length-1];
+      var filename = list[list.length - 1];
       print(filename);
       var urlPath = 'userIdea/$token/$time/$filename';
       print(urlPath);
@@ -300,50 +257,51 @@ class _ShareIdeaState extends State<ShareIdea> {
             print(count);
             // 总进度
             print(total);
-          }
-      );
+          });
       print('发表');
     }
     var title = 1;
     db.collection('idea').add({
-      'title':'',
+      'title': '',
       'popname': token,
       'time': time,
       'url': urlL,
       'content': content,
     }).then((res) async {
       print(res);
-      if(res.id==null){
+      if (res.id == null) {
         print('错误');
-        var cloudUrl = 'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
+        var cloudUrl =
+            'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
         Fluttertoast.showToast(
             msg: "发表失败！",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.blue,
             textColor: Colors.white,
-            fontSize: 13.0
-        );
-        CloudBaseStorageRes<List<DeleteMetadata>> res = await storage.deleteFiles([cloudUrl]);
+            fontSize: 13.0);
+        CloudBaseStorageRes<List<DeleteMetadata>> res =
+            await storage.deleteFiles([cloudUrl]);
         print(res.data[0]);
-      }else{
+      } else {
         Fluttertoast.showToast(
             msg: "发表成功！",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.blue,
             textColor: Colors.white,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => Square(),
+              builder: (BuildContext context) => NavigationHomeScreen(),
             ));
       }
     }).catchError((e) async {
-      var cloudUrl = 'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
-      CloudBaseStorageRes<List<DeleteMetadata>> res = await storage.deleteFiles([cloudUrl]);
+      var cloudUrl =
+          'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
+      CloudBaseStorageRes<List<DeleteMetadata>> res =
+          await storage.deleteFiles([cloudUrl]);
       print(res.data[0]);
       Fluttertoast.showToast(
           msg: "发表失败！",
@@ -351,8 +309,7 @@ class _ShareIdeaState extends State<ShareIdea> {
           gravity: ToastGravity.CENTER,
           backgroundColor: Colors.blue,
           textColor: Colors.white,
-          fontSize: 13.0
-      );
+          fontSize: 13.0);
     });
     // db.collection('user').where({
     //   'username': token

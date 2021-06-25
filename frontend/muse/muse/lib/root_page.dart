@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muse/test.dart';
 import 'package:smart_flare/actors/pan_flare_actor.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -7,7 +8,7 @@ import 'package:smart_flare/enums.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
-import 'package:muse/square.dart';
+
 
 class RootPage extends StatefulWidget {
   const RootPage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _RootPageState extends State<RootPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => Square(),
+          builder: (BuildContext context) => NavigationHomeScreen(),
         ));
   }
   @override

@@ -6,7 +6,9 @@ import 'package:cloudbase_auth/cloudbase_auth.dart';
 import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:cloudbase_function/cloudbase_function.dart';
 import 'package:cloudbase_storage/cloudbase_storage.dart';
+import 'package:muse/fitness_app/fitness_app_home_screen.dart';
 import 'package:muse/home.dart';
+import 'package:muse/test.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Muse',
       debugShowCheckedModeBanner: false,
-      home: Home()
+      // home: FitnessAppHomeScreen()
+        home: Home()
     );
   }
 }

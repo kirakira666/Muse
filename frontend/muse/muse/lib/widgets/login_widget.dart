@@ -5,11 +5,12 @@ import 'package:cloudbase_core/cloudbase_core.dart';
 import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:muse/test.dart';
 import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
 import 'package:muse/widgets/welcome_widget.dart';
 
-import '../square.dart';
+
 import '../storage_util.dart';
 
 
@@ -152,7 +153,7 @@ class LoginBtnIconWidget extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
                 context1,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => Square(),
+                  builder: (BuildContext context) => NavigationHomeScreen(),
                 ),
                     (route) => false);
           }else{

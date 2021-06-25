@@ -1,5 +1,9 @@
+import 'package:cloudbase_auth/cloudbase_auth.dart';
+import 'package:cloudbase_core/cloudbase_core.dart';
+import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:muse/custom_drawer/home_drawer.dart';
 import 'package:muse/share_idea.dart';
 import 'package:muse/storage_util.dart';
 import 'package:smart_flare/actors/pan_flare_actor.dart';
@@ -14,14 +18,39 @@ import 'package:muse/detail.dart';
 import 'package:muse/login.dart';
 import 'package:muse/page/welcome_page.dart';
 
+CloudBaseCore core = CloudBaseCore.init({
+  // 填写您的云开发 env
+  'env': 'zhuji-cloudbase-3g9902drd47633ab',
+  // 填写您的移动应用安全来源凭证
+  // 生成凭证的应用标识必须是 Android 包名或者 iOS BundleID
+  'appAccess': {
+    // 凭证
+    'key': 'e6f33326a0d40fecfc67ffc2877255bc',
+    // 版本
+    'version': '1'
+  },
+  // 请求超时时间（选填）
+  'timeout': 3000
+});
+CloudBaseAuth auth = CloudBaseAuth(core);
+CloudBaseDatabase db = CloudBaseDatabase(core);
+
 class Square extends StatefulWidget {
   const Square({Key? key}) : super(key: key);
 
   @override
   _SquareState createState() => _SquareState();
 }
-
+// ignore: non_constant_identifier_names
+var IdeaList = [];
 class _SquareState extends State<Square> {
+  late DrawerIndex drawerIndex;
+  // @override
+  // void initState() {
+  //   drawerIndex = DrawerIndex.HOME;
+  //   screenView = const MyHomePage();
+  //   super.initState();
+  // }
   Future<void> _jumpDetailPage() async {
     String token =
         await StorageUtil.getStringItem('username');
@@ -116,11 +145,56 @@ class _SquareState extends State<Square> {
     }
   }
   @override
+  Future<void> getContent() async {
+    CloudBaseAuthState authState = await auth.getAuthState();
+    if (authState == null) {
+      await auth.signInAnonymously().then((success) {
+        // 登录成功
+        print('注册成功');
+      }).catchError((err) {
+        // 登录失败
+        print('注册失败');
+      });
+    }
+    var _ = db.command;
+    var re;
+    db.collection('idea').where({
+
+    }).get().then((res) {
+      IdeaList = res.data;
+      print(IdeaList);
+    });
+  }
+  void changeIndex(DrawerIndex drawerIndexdata) {
+    if (drawerIndex != drawerIndexdata) {
+      drawerIndex = drawerIndexdata;
+      if (drawerIndex == DrawerIndex.HOME) {
+        setState(() {
+          // screenView = const MyHomePage();
+        });
+      } else if (drawerIndex == DrawerIndex.Help) {
+        setState(() {
+          // screenView = HelpScreen();
+        });
+      } else if (drawerIndex == DrawerIndex.FeedBack) {
+        setState(() {
+          // screenView = FeedbackScreen();
+        });
+      } else if (drawerIndex == DrawerIndex.Invite) {
+        setState(() {
+          // screenView = InviteFriend();
+        });
+      } else {
+        //do in your way......
+      }
+    }
+  }
   Widget build(BuildContext context) {
     var animationWidth = 295.0;
     var animationHeight = 251.0;
     var animationWidthThirds = animationWidth / 3;
     var halfAnimationHeight = animationHeight / 2;
+    getContent();
 
     var activeAreas = [
       ActiveArea(
@@ -137,7 +211,7 @@ class _SquareState extends State<Square> {
               halfAnimationHeight),
           debugArea: false,
           guardComingFrom: ['deactivate'],
-          animationName: 'pulse_tapped',
+          animationName: 'camera_tapped',
           onAreaTapped: () {
             print('Login tapped!');
             _jumpLoginPage();
@@ -230,135 +304,5 @@ class _SquareState extends State<Square> {
     );
   }
 
-  Widget _rootBack() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: new BoxDecoration(
-        // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
-        color: Colors.black,
-      ),
-      child: Column(
-        children: [
-          Image.asset(
-            'images/star.GIF',
-            fit: BoxFit.cover,
-            // width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-          )
-        ],
-      ),
-    );
-  }
 
-  Widget _goShow() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: new BoxDecoration(
-          // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
-          color: Colors.black.withOpacity(0.5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Show', style: TextStyle(color: Colors.white, fontSize: 12)),
-            // Text('${_currentTime}s', style: TextStyle(color: Colors.white,fontSize: 12)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _goFind() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: new BoxDecoration(
-          // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
-          color: Colors.black.withOpacity(0.5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Find', style: TextStyle(color: Colors.white, fontSize: 12)),
-            // Text('${_currentTime}s', style: TextStyle(color: Colors.white,fontSize: 12)),
-          ],
-        ),
-      ),
-    );
-  }
 }
-
-//
-// class _RootPageState extends State<RootPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     var animationWidth = 295.0;
-//     var animationHeight = 251.0;
-//     var animationWidthThirds = animationWidth / 3;
-//     var halfAnimationHeight = animationHeight / 2;
-//
-//     var activeAreas = [
-//
-//       ActiveArea(
-//         area: Rect.fromLTWH(0, 0, animationWidthThirds, halfAnimationHeight),
-//         debugArea: false,
-//         guardComingFrom: ['deactivate'],
-//         animationName: 'camera_tapped',
-//       ),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds, halfAnimationHeight),
-//           debugArea: false,
-//           guardComingFrom: ['deactivate'],
-//           animationName: 'pulse_tapped'),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds, halfAnimationHeight),
-//           debugArea: false,
-//           guardComingFrom: ['deactivate'],
-//           animationName: 'image_tapped'),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(0, animationHeight / 2, animationWidth, animationHeight / 2),
-//           debugArea: false,
-//           animationsToCycle: ['activate', 'deactivate'],
-//           onAreaTapped: () {
-//             print('Button tapped!');
-//           })
-//
-//     ];
-//
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Flare Button Demo'),
-//       ),
-//       body: Container(
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//               begin: Alignment.topCenter,
-//               end: Alignment.bottomCenter,
-//               colors: [
-//                 Color(0x3fffeb3b),
-//                 Colors.orange,
-//               ]),
-//         ),
-//         child: Align(
-//           alignment: Alignment.bottomCenter,
-//           child: SmartFlareActor(
-//             width: animationWidth,
-//             height: animationHeight,
-//             filename: 'images/button-animation.flr',
-//             startingAnimation: 'deactivate',
-//             activeAreas: activeAreas,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
