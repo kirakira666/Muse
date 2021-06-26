@@ -54,9 +54,11 @@ class _IdeaListScreenState extends State<IdeaListScreen>
             parent: widget.animationController,
             curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
     addAllListData();
+    addListData();
 
     scrollController.addListener(() {
       if (scrollController.offset >= 24) {
+
         if (topBarOpacity != 1.0) {
           setState(() {
             topBarOpacity = 1.0;
@@ -70,6 +72,7 @@ class _IdeaListScreenState extends State<IdeaListScreen>
           });
         }
       } else if (scrollController.offset <= 0) {
+        // addListData();
         if (topBarOpacity != 0.0) {
           setState(() {
             topBarOpacity = 0.0;
@@ -80,7 +83,7 @@ class _IdeaListScreenState extends State<IdeaListScreen>
     super.initState();
   }
 
-  Future<void> addAllListData() async {
+  Future<void> addListData() async {
     CloudBaseAuthState authState = await auth.getAuthState();
     print('jnkfj');
     if (authState == null) {
@@ -96,32 +99,52 @@ class _IdeaListScreenState extends State<IdeaListScreen>
     }).get().then((res) {
       print(res.data);
       ideaList = res.data;
-      for(int i = 0;i<ideaList.length;++i){
-        String content = ideaList[ideaList.length-i-1]['content'];
+      for (int i = 0; i < ideaList.length; ++i) {
+        String content = ideaList[ideaList.length - i - 1]['content'];
+        String username = ideaList[ideaList.length - i - 1]['popname'];
+        String picUrl = 'empty';
+        print(ideaList[ideaList.length - i - 1]['url']);
+        if(ideaList[ideaList.length - i - 1]['url'] == null||ideaList[ideaList.length - i - 1]['url'].length == 0){
+          picUrl = 'empty';
+        }else{
+          picUrl = ideaList[ideaList.length - i - 1]['url'][0];
+          if(picUrl==''){
+            picUrl = 'empty';
+          }
+        }
+
+        print(ideaList[ideaList.length - i - 1]['url']);
+
         listViews.add(
           WorkoutView(
-            animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-                parent: widget.animationController,
-                curve:
-                Interval((1 / 5) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-            animationController: widget.animationController, nameJJ: content,
+            animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+                CurvedAnimation(
+                    parent: widget.animationController,
+                    curve:
+                    Interval((1 / 5) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            animationController: widget.animationController,
+            nameJJ: content,
+            username: username, picUrl: picUrl,
           ),
         );
       }
     });
+  }
+
+  Future<void> addAllListData() async {
     const int count = 5;
 
-    listViews.add(
-      TitleView(
-        titleTxt: 'Your program',
-        subTxt: 'Details',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-            Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
+    // listViews.add(
+    //   TitleView(
+    //     titleTxt: 'Your program',
+    //     subTxt: 'Details',
+    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    //         parent: widget.animationController,
+    //         curve:
+    //         Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+    //     animationController: widget.animationController,
+    //   ),
+    // );
 
     listViews.add(
       RunningView(
@@ -133,17 +156,17 @@ class _IdeaListScreenState extends State<IdeaListScreen>
       ),
     );
 
-    listViews.add(
-      TitleView(
-        titleTxt: 'Area of focus',
-        subTxt: 'more',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-            Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
+    // listViews.add(
+    //   TitleView(
+    //     titleTxt: 'Area of focus',
+    //     subTxt: 'more',
+    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    //         parent: widget.animationController,
+    //         curve:
+    //         Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+    //     animationController: widget.animationController,
+    //   ),
+    // );
 
     listViews.add(
       AreaListView(
@@ -155,18 +178,43 @@ class _IdeaListScreenState extends State<IdeaListScreen>
         mainScreenAnimationController: widget.animationController,
       ),
     );
+    // listViews.add(
+    //   WorkoutView(
+    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    //         parent: widget.animationController,
+    //         curve:
+    //         Interval((1 / 5) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+    //     animationController: widget.animationController, nameJJ: 'content', username: 'ii',
+    //   ),
+    // );
+  }
+
+  Future<void> addAllListData1() async {
+    const int count = 5;
+
     listViews.add(
-      WorkoutView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-            Interval((1 / 5) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController, nameJJ: 'content',
+      AreaListView(
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController,
+                curve: Interval((1 / count) * 5, 1.0,
+                    curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
       ),
     );
+    // listViews.add(
+    //   WorkoutView(
+    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    //         parent: widget.animationController,
+    //         curve:
+    //         Interval((1 / 5) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+    //     animationController: widget.animationController, nameJJ: 'content', username: 'ii',
+    //   ),
+    // );
   }
 
   Future<bool> getData() async {
+    // addAllListData();
     await Future<dynamic>.delayed(const Duration(milliseconds: 50));
     return true;
   }
@@ -267,6 +315,8 @@ class _IdeaListScreenState extends State<IdeaListScreen>
 
   @override
   Widget build(BuildContext context) {
+    addAllListData1();
+    addListData();
     var animationWidth = 295.0;
     var animationHeight = 251.0;
     var animationWidthThirds = animationWidth / 3;

@@ -11,7 +11,8 @@ const double kBtnRadius = 24;
 // 输入框边框圆角半径
 const double kInputBorderRadius = 5;
 // icon 大小
-const double kIconSize = 24;
+const double kIconSize = 28;
+const double kIconSize1 = 35;
 // icon 盒子大小
 const double kIconBoxSize = 56;
 // Light 字重

@@ -20,7 +20,6 @@ import 'package:tflite/tflite.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
 import 'package:muse/detail.dart';
-import 'package:muse/login.dart';
 import 'package:muse/page/welcome_page.dart';
 import 'package:image_picker/image_picker.dart';
 

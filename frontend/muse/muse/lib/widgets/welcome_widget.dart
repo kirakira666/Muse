@@ -35,7 +35,7 @@ class LineWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 80,
-      child: Divider(color: kTextColor),
+      child: Divider(color: Colors.white),
     );
   }
 }
@@ -49,7 +49,7 @@ class LoginBtnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 208,
+      width: 195,
       height: 48,
       decoration: BoxDecoration(
         color: Colors.white,

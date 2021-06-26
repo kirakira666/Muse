@@ -10,24 +10,25 @@ class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-
+BuildContext? context1;
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    context1 = context;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         fit: StackFit.expand,
         children: [
           Positioned(
-            top: 0,
-            left: 0,
-            child: Image.asset(
-              'assets/images/bg_login_header.png',
-              width: 375,
-              height: 476,
-              fit: BoxFit.fitWidth,
-            ),
+            // top: MediaQuery.of(context).padding.top,
+            // right: (MediaQuery.of(context).size.width-300)/2,
+            child: _homeBack(),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).padding.top-300,
+            // right: (MediaQuery.of(context).size.width-300)/2,
+            child: _homePic(),
           ),
           Column(
             children: [
@@ -48,6 +49,71 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  Widget _homePic() {
+    return Container(
+      // decoration: new BoxDecoration(
+      //   // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+      //     color: Color.fromARGB(255, 57, 57, 57),
+      //     borderRadius: new BorderRadius.circular((10.0))),
+      child: Stack(
+        children: [
+          // Image.asset(
+          //   'images/ccchhh.GIF',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          // ),
+          // Image.asset(
+          //   'images/hhh.png',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: MediaQuery.of(context).size.height,
+          // ),
+
+          Positioned(
+            bottom: 200,
+            right: (MediaQuery.of(context1!).size.width - 300) / 2,
+            child: Container(
+              child: Image.asset(
+                'images/yhy.png',
+                fit: BoxFit.contain,
+                width: 300,
+                // height: MediaQuery.of(context).size.height,
+              ),
+            ),
+          ),
+          Image.asset(
+            'images/mon.png',
+            fit: BoxFit.contain,
+            width: MediaQuery.of(context1!).size.width,
+            height: MediaQuery.of(context1!).size.height,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _homeBack() {
+    return Container(
+      width: MediaQuery.of(context1!).size.width,
+      height: MediaQuery.of(context1!).size.height,
+      decoration: new BoxDecoration(
+        // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+        color: Colors.black,
+      ),
+      child: Column(
+        children: [
+          Image.asset(
+            'images/star.GIF',
+            fit: BoxFit.cover,
+            // width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context1!).size.height,
+          )
+        ],
+      ),
+    );
+  }
+
 }
 
 /// 登录页面内容体
@@ -78,7 +144,7 @@ class LoginBodyWidget extends StatelessWidget {
           SizedBox(height: 4.spH()),
           LoginInput(
             hintText: 'Username',
-            prefixIcon: 'assets/icons/icon_email.png',
+            prefixIcon: 'assets/icons/user.png',
           ),
           SizedBox(height: 16.spH()),
           Text(
@@ -88,7 +154,7 @@ class LoginBodyWidget extends StatelessWidget {
           SizedBox(height: 4.spH()),
           LoginInput(
             hintText: 'Password',
-            prefixIcon: 'assets/icons/icon_pwd.png',
+            prefixIcon: 'assets/icons/pwd.png',
             obscureText: true,
           ),
           SizedBox(height: 32.spH()),

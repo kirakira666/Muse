@@ -347,9 +347,9 @@ class BackIcon extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: Image.asset(
-          'assets/icons/icon_back.png',
-          width: kIconSize,
-          height: kIconSize,
+          'assets/icons/back.png',
+          width: kIconSize1,
+          height: kIconSize1,
         ),
       ),
     );

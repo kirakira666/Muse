@@ -76,7 +76,7 @@ class _TrainingScreenState extends State<TrainingScreen>
             parent: widget.animationController,
             curve:
                 Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController, nameJJ: 'oo',
+        animationController: widget.animationController, nameJJ: 'oo', username: 'hh', picUrl: 'empty',
       ),
     );
     listViews.add(

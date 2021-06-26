@@ -7,8 +7,10 @@ class WorkoutView extends StatelessWidget {
   final AnimationController animationController;
   final Animation<double> animation;
   final String nameJJ;
+  final String username;
+  final String picUrl;
 
-  const WorkoutView({Key? key, required this.animationController, required this.animation, required this.nameJJ})
+  const WorkoutView({Key? key, required this.animationController, required this.animation, required this.nameJJ, required this.username, required this.picUrl})
       : super(key: key);
 
   @override
@@ -17,6 +19,22 @@ class WorkoutView extends StatelessWidget {
       animation: animationController,
       builder: hhbuilder,
     );
+  }
+
+  DecorationImage kkimage() {
+    if (picUrl[0] != 'u'){
+      return new DecorationImage(
+        //设置背景图片
+        image: AssetImage("images/star.GIF"),
+        fit: BoxFit.cover,
+      );
+    }else{
+      return new DecorationImage(
+        //设置背景图片
+        image:NetworkImage('https://7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525.tcb.qcloud.la/'+picUrl),
+        fit: BoxFit.cover,
+      );
+    }
   }
 
   Widget hhbuilder(BuildContext context, Widget? child) {
@@ -30,6 +48,7 @@ class WorkoutView extends StatelessWidget {
               left: 24, right: 24, top: 16, bottom: 18),
           child: Container(
             decoration: BoxDecoration(
+                image: kkimage(),
               gradient: LinearGradient(colors: [
                 FitnessAppTheme.nearlyDarkBlue,
                 HexColor("#6F56E8")
@@ -53,7 +72,7 @@ class WorkoutView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Next workout',
+                    username,
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: FitnessAppTheme.fontName,
@@ -143,4 +162,6 @@ class WorkoutView extends StatelessWidget {
       ),
     );
   }
+
+
 }
