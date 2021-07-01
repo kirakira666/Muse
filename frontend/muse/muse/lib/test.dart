@@ -6,12 +6,9 @@ import 'package:muse/custom_drawer/home_drawer.dart';
 // import 'package:best_flutter_ui_templates/home_screen.dart';
 // import 'package:best_flutter_ui_templates/invite_friend_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:muse/fitness_app/training/idea_list_screen.dart';
-import 'package:muse/fitness_app/training/training_screen.dart';
-// import 'package:muse/page/idea_page.dart';
+import 'package:muse/aboutPic/facing/idea_list_screen.dart';
 
 
-import 'fitness_app/my_diary/my_diary_screen.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
   @override

@@ -9,6 +9,8 @@ import 'package:smart_flare/enums.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:smart_flare/models.dart';
 
+import 'aboutPic/index_pic.dart';
+
 
 class RootPage extends StatefulWidget {
   const RootPage({Key? key}) : super(key: key);
@@ -18,11 +20,18 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  void _jumpRootPage() {
+  void _jumpSquarePage() {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => NavigationHomeScreen(),
+        ));
+  }
+  void _jumpImgPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => IndexPic(),
         ));
   }
   @override
@@ -40,7 +49,7 @@ class _RootPageState extends State<RootPage> {
           animationName: 'camera_tapped',
           onAreaTapped: () {
             print('Camera tapped!');
-            _jumpRootPage();
+            _jumpSquarePage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds,
@@ -50,6 +59,7 @@ class _RootPageState extends State<RootPage> {
           animationName: 'pulse_tapped',
           onAreaTapped: () {
             print('Pulse tapped!');
+            _jumpImgPage();
           }),
       ActiveArea(
           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds,
@@ -58,7 +68,7 @@ class _RootPageState extends State<RootPage> {
           guardComingFrom: ['deactivate'],
           animationName: 'image_tapped',
           onAreaTapped: () {
-            print('Button tapped!');
+            print('Image tapped!');
           }),
       ActiveArea(
           area: Rect.fromLTWH(

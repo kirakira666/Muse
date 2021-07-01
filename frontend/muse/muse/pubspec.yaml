@@ -44,10 +44,12 @@ dependencies:
   path_provider: ^1.6.9
   shared_preferences: ^0.5.3+4
   image_picker: ^0.5.0+2
-  tflite: ^0.0.2
+  tflite:
+    path: ../tf
   font_awesome_flutter: ^8.8.1
   smooth_star_rating: ^1.1.1
   intl: ^0.16.0
+  image: any
 
 
 
@@ -76,8 +78,15 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/fitness_app/
-    - assets/mobilenet_v1_1.0_224.tflite
     - assets/mobilenet_v1_1.0_224.txt
+    - assets/mobilenet_v1_1.0_224.tflite
+    - assets/yolov2_tiny.tflite
+    - assets/yolov2_tiny.txt
+    - assets/ssd_mobilenet.tflite
+    - assets/ssd_mobilenet.txt
+    - assets/deeplabv3_257_mv_gpu.tflite
+    - assets/deeplabv3_257_mv_gpu.txt
+    - assets/posenet_mv1_075_float_from_checkpoints.tflite
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

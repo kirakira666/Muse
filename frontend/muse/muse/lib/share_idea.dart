@@ -9,18 +9,6 @@ import 'package:muse/storage_util.dart';
 import 'package:muse/test.dart';
 import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
-import 'package:smart_flare/actors/pan_flare_actor.dart';
-import 'dart:io';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:smart_flare/actors/smart_flare_actor.dart';
-import 'package:smart_flare/enums.dart';
-import 'package:tflite/tflite.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:smart_flare/models.dart';
-import 'package:muse/detail.dart';
-import 'package:muse/page/welcome_page.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ShareIdea extends StatefulWidget {
