@@ -52,12 +52,12 @@ class _HomeState extends State<Home> {
           Positioned(
             // top: MediaQuery.of(context).padding.top+20,
             // right: (MediaQuery.of(context).size.width-300)/2,
-            child: _homePic(),
+            child: _homePic2(),
           ),
           Positioned(
-            top: MediaQuery.of(context).padding.top + 60,
-            right: (MediaQuery.of(context).size.width - 330) / 2,
-            child: _homeCard(),
+            // top: MediaQuery.of(context).padding.top+20,
+            // right: (MediaQuery.of(context).size.width-300)/2,
+            child: _homePic3(),
           ),
           Positioned(
             top: MediaQuery.of(context).padding.top + 10,
@@ -162,7 +162,70 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+  Widget _homePic2() {
+    return Container(
+      // decoration: new BoxDecoration(
+      //   // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+      //     color: Color.fromARGB(255, 57, 57, 57),
+      //     borderRadius: new BorderRadius.circular((10.0))),
+      child: Stack(
+        children: [
+          // Image.asset(
+          //   'images/ccchhh.GIF',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          // ),
+          // Image.asset(
+          //   'images/hhh.png',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: MediaQuery.of(context).size.height,
+          // ),
 
+          Positioned(
+            bottom: 60,
+            left: 80,
+            child: Container(
+              height: 140,
+              decoration: new BoxDecoration(
+                // border: new Border.all(width: 2.0, color: Colors.red),
+                borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  'images/yhy.png',
+                  fit: BoxFit.fitHeight,
+                  width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
+                ),
+              ),
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+  Widget _homePic3() {
+    return Container(
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 35,
+            right: 20,
+            child: Text(
+                '@Authored by kirakira666',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 14)),
+          ),
+
+        ],
+      ),
+    );
+  }
   Widget _homeBack() {
     return Container(
       width: MediaQuery.of(context).size.width,

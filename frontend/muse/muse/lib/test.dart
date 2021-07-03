@@ -7,6 +7,7 @@ import 'package:muse/custom_drawer/home_drawer.dart';
 // import 'package:best_flutter_ui_templates/invite_friend_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:muse/aboutPic/facing/idea_list_screen.dart';
+import 'package:muse/storage_util.dart';
 
 
 
@@ -14,7 +15,7 @@ class NavigationHomeScreen extends StatefulWidget {
   @override
   _NavigationHomeScreenState createState() => _NavigationHomeScreenState();
 }
-
+String usernamelo = '未登录';
 class _NavigationHomeScreenState extends State<NavigationHomeScreen> with TickerProviderStateMixin{
   late Widget screenView;
   late Widget screenView1;
@@ -27,12 +28,14 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> with Ticker
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
     screenView = IdeaListScreen(animationController: animationController);
+    getlocal();
     // screenView = IdeaPage();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    getlocal();
     return Container(
       color: AppTheme.nearlyWhite,
       child: SafeArea(
@@ -47,7 +50,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> with Ticker
               changeIndex(drawerIndexdata);
               //callback from drawer for replace screen as user need with passing DrawerIndex(Enum index)
             },
-            screenView: screenView, drawerIsOpen: (bool ) {  },
+            screenView: screenView, drawerIsOpen: (bool ) {  }, username: 'getname()',
             //we replace screen view as we need on navigate starting screens like MyHomePage, HelpScreen, FeedbackScreen, etc...
           ),
         ),
@@ -62,7 +65,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> with Ticker
         setState(() {
           // screenView = const MyHomePage();
         });
-      } else if (drawerIndex == DrawerIndex.Help) {
+      } else if (drawerIndex == DrawerIndex.Cancellation) {
         setState(() {
           // screenView = HelpScreen();
         });
@@ -77,6 +80,19 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> with Ticker
       } else {
         //do in your way......
       }
+    }
+  }
+
+  String getname() {
+    getlocal();
+    return StorageUtil.getStringItem('username');
+  }
+
+  Future<void> getlocal() async {
+    usernamelo=await StorageUtil.getStringItem('username');
+    print("rrrrrrrrrrrrrrrrrrrr"+usernamelo);
+    if (usernamelo == null) {
+      usernamelo = '未登录';
     }
   }
 }

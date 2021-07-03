@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:muse/aboutPic/index_pic.dart';
 
 import '../pic_app_theme.dart';
 
@@ -18,10 +19,10 @@ class _AreaListViewState extends State<AreaListView>
     with TickerProviderStateMixin {
   late AnimationController animationController;
   List<String> areaListData = <String>[
-    'assets/fitness_app/area1.png',
-    'assets/fitness_app/area2.png',
-    'assets/fitness_app/area3.png',
-    'assets/fitness_app/area1.png',
+    'assets/fitness_app/tab_1s.png',
+    'assets/fitness_app/tab_2s.png',
+    'assets/fitness_app/tab_3s.png',
+    'assets/fitness_app/tab_4s.png',
   ];
 
   @override
@@ -124,10 +125,10 @@ class AreaView extends StatelessWidget {
           decoration: BoxDecoration(
             color: PicAppTheme.white,
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                bottomLeft: Radius.circular(8.0),
-                bottomRight: Radius.circular(8.0),
-                topRight: Radius.circular(8.0)),
+                topLeft: Radius.circular(20.0),
+                bottomLeft: Radius.circular(20.0),
+                bottomRight: Radius.circular(20.0),
+                topRight: Radius.circular(20.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
                   color: PicAppTheme.grey.withOpacity(0.4),
@@ -143,12 +144,39 @@ class AreaView extends StatelessWidget {
               hoverColor: Colors.transparent,
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               splashColor: PicAppTheme.nearlyDarkBlue.withOpacity(0.2),
-              onTap: () {},
+              onTap: () {
+                if(imagepath=='assets/fitness_app/tab_1s.png'){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => IndexPic(page: 0,),
+                      ));
+                }else if(imagepath=='assets/fitness_app/tab_2s.png'){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => IndexPic(page: 1,),
+                      ));
+                }else if(imagepath=='assets/fitness_app/tab_3s.png'){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => IndexPic(page: 2,),
+                      ));
+                }else if(imagepath=='assets/fitness_app/tab_4s.png'){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => IndexPic(page: 3,),
+                      ));
+                }
+                print('g');
+              },
               child: Column(
                 children: <Widget>[
                   Padding(
                     padding:
-                    const EdgeInsets.only(top: 16, left: 16, right: 16),
+                    const EdgeInsets.only(top: 10, left: 10, right: 10),
                     child: Image.asset(imagepath!),
                   ),
                 ],

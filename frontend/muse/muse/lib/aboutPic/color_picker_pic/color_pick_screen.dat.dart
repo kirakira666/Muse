@@ -6,6 +6,7 @@ import 'package:muse/aboutPic/pic_app_theme.dart';
 import 'package:muse/aboutPic/color_picker_pic/meals_list_view.dart';
 import 'package:muse/aboutPic/color_picker_pic/water_view.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class ColorPickScreen extends StatefulWidget {
   const ColorPickScreen({Key? key, required this.animationController}) : super(key: key);
@@ -58,7 +59,7 @@ class _ColorPickScreenState extends State<ColorPickScreen>
 
   void addAllListData() {
     const int count = 9;
-
+    File i = new File('/storage/emulated/0/DCIM/Screenshots/IMG_20210702_152213.jpg');
     listViews.add(
       TitleView(
         titleTxt: 'Mediterranean diet',
@@ -76,7 +77,7 @@ class _ColorPickScreenState extends State<ColorPickScreen>
             parent: widget.animationController,
             curve:
             Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
+        animationController: widget.animationController, imgbk: i,
       ),
     );
     listViews.add(
@@ -142,7 +143,7 @@ class _ColorPickScreenState extends State<ColorPickScreen>
                 parent: widget.animationController,
                 curve: Interval((1 / count) * 7, 1.0,
                     curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
+        mainScreenAnimationController: widget.animationController, valuePer: 10.0,
       ),
     );
     listViews.add(

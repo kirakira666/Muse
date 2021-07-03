@@ -134,17 +134,11 @@ class _IdeaListScreenState extends State<IdeaListScreen>
   Future<void> addAllListData() async {
     const int count = 5;
 
-    // listViews.add(
-    //   TitleView(
-    //     titleTxt: 'Your program',
-    //     subTxt: 'Details',
-    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-    //         parent: widget.animationController,
-    //         curve:
-    //         Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-    //     animationController: widget.animationController,
-    //   ),
-    // );
+    listViews.add(
+        SizedBox(
+          height: 250,
+        )
+    );
 
     listViews.add(
       RunningView(
@@ -156,35 +150,26 @@ class _IdeaListScreenState extends State<IdeaListScreen>
       ),
     );
 
-    // listViews.add(
-    //   TitleView(
-    //     titleTxt: 'Area of focus',
-    //     subTxt: 'more',
-    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-    //         parent: widget.animationController,
-    //         curve:
-    //         Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
-    //     animationController: widget.animationController,
-    //   ),
-    // );
-
     listViews.add(
-      AreaListView(
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController,
-                curve: Interval((1 / count) * 5, 1.0,
-                    curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
+      TitleView(
+        titleTxt: 'Scroll down to explore!',
+        subTxt: 'more',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController,
+            curve:
+            Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController,
       ),
     );
+
     // listViews.add(
-    //   WorkoutView(
-    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-    //         parent: widget.animationController,
-    //         curve:
-    //         Interval((1 / 5) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-    //     animationController: widget.animationController, nameJJ: 'content', username: 'ii',
+    //   AreaListView(
+    //     mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+    //         CurvedAnimation(
+    //             parent: widget.animationController,
+    //             curve: Interval((1 / count) * 5, 1.0,
+    //                 curve: Curves.fastOutSlowIn))),
+    //     mainScreenAnimationController: widget.animationController,
     //   ),
     // );
   }
@@ -474,6 +459,18 @@ class _IdeaListScreenState extends State<IdeaListScreen>
           ),
           child: Stack(
             children: [
+              Positioned(
+                child: _rootBack(),
+              ),
+              Positioned(
+                top: 20,
+                  child: scrollController.offset <= 20?Image.asset(
+                    'images/1.gif',
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                  ):SizedBox(height: 1,),
+              ),
+
               Image.asset(
                 'images/mon.png',
                 fit: BoxFit.contain,
@@ -502,8 +499,7 @@ class _IdeaListScreenState extends State<IdeaListScreen>
           decoration: BoxDecoration(
             color: PicAppTheme.white.withOpacity(topBarOpacity),
             borderRadius: const BorderRadius.only(
-              // bottomLeft: Radius.circular(32.0),
-              // bottomRight: Radius.circular(32.0),
+              bottomLeft: Radius.circular(32.0),
             ),
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -515,14 +511,12 @@ class _IdeaListScreenState extends State<IdeaListScreen>
           ),
           child: Stack(
             children: [
-              Image.asset(
-                'images/1.gif',
-                fit: BoxFit.contain,
-                width: MediaQuery.of(context).size.width,
-              ),
+
               SizedBox(
                 height: MediaQuery.of(context).padding.top,
+
               ),
+
               Padding(
                 padding: EdgeInsets.only(
                     left: 16,
@@ -611,7 +605,8 @@ class _IdeaListScreenState extends State<IdeaListScreen>
                     ),
                   ],
                 ),
-              )
+              ),
+
             ],
           ),
           // Column(
@@ -631,12 +626,10 @@ class _IdeaListScreenState extends State<IdeaListScreen>
         transform: Matrix4.translationValues(
             0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
         child: Container(
-          // height:100,
           decoration: BoxDecoration(
             color: PicAppTheme.white.withOpacity(topBarOpacity),
             borderRadius: const BorderRadius.only(
-              // bottomLeft: Radius.circular(32.0),
-              // bottomRight: Radius.circular(32.0),
+              bottomLeft: Radius.circular(32.0),
             ),
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -646,8 +639,8 @@ class _IdeaListScreenState extends State<IdeaListScreen>
                   blurRadius: 10.0),
             ],
           ),
-          child: Stack(
-            children: [
+          child: Column(
+            children: <Widget>[
               SizedBox(
                 height: MediaQuery.of(context).padding.top,
               ),
@@ -655,16 +648,17 @@ class _IdeaListScreenState extends State<IdeaListScreen>
                 padding: EdgeInsets.only(
                     left: 16,
                     right: 16,
-                    top: 16 - 8.0 * topBarOpacity*2,
+                    top: 16 - 8.0 * topBarOpacity,
                     bottom: 12 - 8.0 * topBarOpacity),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'jj',
+                          '',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: PicAppTheme.fontName,
@@ -684,12 +678,6 @@ class _IdeaListScreenState extends State<IdeaListScreen>
                         borderRadius: const BorderRadius.all(
                             Radius.circular(32.0)),
                         onTap: () {},
-                        child: Center(
-                          child: Icon(
-                            Icons.keyboard_arrow_left,
-                            color: PicAppTheme.grey,
-                          ),
-                        ),
                       ),
                     ),
                     Padding(
@@ -702,13 +690,13 @@ class _IdeaListScreenState extends State<IdeaListScreen>
                           Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: Icon(
-                              Icons.calendar_today,
+                              Icons.lightbulb,
                               color: PicAppTheme.grey,
-                              size: 18,
+                              size: 21,
                             ),
                           ),
                           Text(
-                            '15 May',
+                            'Share your Ideas!',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontFamily: PicAppTheme.fontName,
@@ -722,19 +710,19 @@ class _IdeaListScreenState extends State<IdeaListScreen>
                       ),
                     ),
                     SizedBox(
-                      height: 99,
-                      width: 38,
+                      height: 38,
+                      width: 0,
                       child: InkWell(
                         highlightColor: Colors.transparent,
                         borderRadius: const BorderRadius.all(
                             Radius.circular(32.0)),
                         onTap: () {},
-                        child: Center(
-                          child: Icon(
-                            Icons.keyboard_arrow_right,
-                            color: PicAppTheme.grey,
-                          ),
-                        ),
+                        // child: Center(
+                        //   child: Icon(
+                        //     Icons.keyboard_arrow_right,
+                        //     color: PicAppTheme.grey,
+                        //   ),
+                        // ),
                       ),
                     ),
                   ],
@@ -742,12 +730,28 @@ class _IdeaListScreenState extends State<IdeaListScreen>
               )
             ],
           ),
-          // Column(
-          //   children: <Widget>[
-          //
-          //   ],
-          // ),
         ),
+      ),
+    );
+  }
+
+  Widget _rootBack() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: new BoxDecoration(
+        // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+        color: Colors.black,
+      ),
+      child: Column(
+        children: [
+          Image.asset(
+            'images/star.GIF',
+            fit: BoxFit.cover,
+            // width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          )
+        ],
       ),
     );
   }

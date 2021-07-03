@@ -80,32 +80,8 @@ class _RandomPicState extends State<RandomPic> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 12.0, right: 12.0, top: 30.0, bottom: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        CustomIcons.menu,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () {
-                        randomImg();
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
+              SizedBox(
+                height: 70,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -121,14 +97,19 @@ class _RandomPicState extends State<RandomPic> {
                         )),
                     IconButton(
                       icon: Icon(
-                        CustomIcons.option,
-                        size: 12.0,
+                        Icons.shuffle,
+                        size: 40.0,
                         color: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        randomImg();
+                      },
                     )
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
@@ -143,7 +124,7 @@ class _RandomPicState extends State<RandomPic> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 22.0, vertical: 6.0),
-                          child: Text("Animated",
+                          child: Text("Artwork",
                               style: TextStyle(color: Colors.white)),
                         ),
                       ),
@@ -151,10 +132,13 @@ class _RandomPicState extends State<RandomPic> {
                     SizedBox(
                       width: 15.0,
                     ),
-                    Text("25+ Stories",
+                    Text("Random get artworks!",
                         style: TextStyle(color: Colors.blueAccent))
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 30,
               ),
               Stack(
                 children: <Widget>[
@@ -290,7 +274,7 @@ class CardScrollWidget extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     color: Colors.blueAccent,
                                     borderRadius: BorderRadius.circular(20.0)),
-                                child: Text("Read Later",
+                                child: Text(random[i]['artistShow'],
                                     style: TextStyle(color: Colors.white)),
                               ),
                             )

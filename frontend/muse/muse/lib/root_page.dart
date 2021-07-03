@@ -11,7 +11,6 @@ import 'package:smart_flare/models.dart';
 
 import 'aboutPic/index_pic.dart';
 
-
 class RootPage extends StatefulWidget {
   const RootPage({Key? key}) : super(key: key);
 
@@ -27,58 +26,20 @@ class _RootPageState extends State<RootPage> {
           builder: (BuildContext context) => NavigationHomeScreen(),
         ));
   }
+
   void _jumpImgPage() {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => IndexPic(),
+          builder: (BuildContext context) => IndexPic(
+            page: 0,
+          ),
         ));
   }
+
   @override
   Widget build(BuildContext context) {
-    var animationWidth = 295.0;
-    var animationHeight = 251.0;
-    var animationWidthThirds = animationWidth / 3;
-    var halfAnimationHeight = animationHeight / 2;
 
-    var activeAreas = [
-      ActiveArea(
-          area: Rect.fromLTWH(0, 0, animationWidthThirds, halfAnimationHeight),
-          debugArea: false,
-          guardComingFrom: ['deactivate'],
-          animationName: 'camera_tapped',
-          onAreaTapped: () {
-            print('Camera tapped!');
-            _jumpSquarePage();
-          }),
-      ActiveArea(
-          area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds,
-              halfAnimationHeight),
-          debugArea: false,
-          guardComingFrom: ['deactivate'],
-          animationName: 'pulse_tapped',
-          onAreaTapped: () {
-            print('Pulse tapped!');
-            _jumpImgPage();
-          }),
-      ActiveArea(
-          area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds,
-              halfAnimationHeight),
-          debugArea: false,
-          guardComingFrom: ['deactivate'],
-          animationName: 'image_tapped',
-          onAreaTapped: () {
-            print('Image tapped!');
-          }),
-      ActiveArea(
-          area: Rect.fromLTWH(
-              0, animationHeight / 2, animationWidth, animationHeight / 2),
-          debugArea: false,
-          animationsToCycle: ['activate', 'deactivate'],
-          onAreaTapped: () {
-            print('Button tapped!');
-          })
-    ];
     return Scaffold(
       body: Stack(
         children: [
@@ -86,53 +47,47 @@ class _RootPageState extends State<RootPage> {
             child: _rootBack(),
           ),
           Positioned(
-            bottom: MediaQuery.of(context).padding.bottom + 10,
-            left: 10,
+            // top: MediaQuery.of(context).padding.top+20,
+            // right: (MediaQuery.of(context).size.width-300)/2,
+            child: _homePic(),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 60,
+            right: (MediaQuery.of(context).size.width - 330) / 2,
+            child: _homeCard(),
+          ),
+          Positioned(
+            bottom: MediaQuery.of(context).padding.bottom + 30,
+            left: 15,
             child: InkWell(
               child: _goShow(),
               onTap: () {
+                _jumpSquarePage();
                 print('show');
               },
             ),
           ),
           Positioned(
-            bottom: MediaQuery.of(context).padding.bottom + 10,
-            right: 10,
+            bottom: MediaQuery.of(context).padding.bottom + 30,
+            right: 15,
             child: InkWell(
               child: _goFind(),
               onTap: () {
+                _jumpImgPage();
                 print('find');
               },
             ),
           ),
           // Align(
-          //   alignment: Alignment.centerRight,
-          //   child: PanFlareActor(
-          //     width: MediaQuery.of(context).size.width / 2.366,
-          //     height: MediaQuery.of(context).size.height,
-          //     filename: 'images/slideout-menu.flr',
-          //     openAnimation: 'open',
-          //     closeAnimation: 'close',
-          //     direction: ActorAdvancingDirection.RightToLeft,
-          //     threshold: 20.0,
-          //     reverseOnRelease: true,
-          //     completeOnThresholdReached: true,
-          //     activeAreas: [
-          //       RelativePanArea(
-          //           area: Rect.fromLTWH(0, .7, 1.0, .3), debugArea: false),
-          //     ],
+          //   alignment: Alignment.bottomCenter,
+          //   child: SmartFlareActor(
+          //     width: animationWidth,
+          //     height: animationHeight,
+          //     filename: 'images/button-animation.flr',
+          //     startingAnimation: 'deactivate',
+          //     activeAreas: activeAreas,
           //   ),
           // ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: SmartFlareActor(
-              width: animationWidth,
-              height: animationHeight,
-              filename: 'images/button-animation.flr',
-              startingAnimation: 'deactivate',
-              activeAreas: activeAreas,
-            ),
-          ),
         ],
       ),
     );
@@ -161,18 +116,38 @@ class _RootPageState extends State<RootPage> {
 
   Widget _goShow() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
-        width: 50,
-        height: 50,
+        width: 65,
+        height: 70,
         decoration: new BoxDecoration(
           // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.white.withOpacity(0.75),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Show', style: TextStyle(color: Colors.white, fontSize: 12)),
+            SizedBox(
+              height: 28,
+              width: 28,
+              child: InkWell(
+                highlightColor: Colors.transparent,
+                borderRadius: const BorderRadius.all(
+                    Radius.circular(32.0)),
+                onTap: () {
+                  print('show');
+                  _jumpSquarePage();
+                },
+                child: Center(
+                  child: Icon(
+                    Icons.arrow_back_ios_sharp,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                ),
+              ),
+            ),
+            Text('Show', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w300,fontSize: 14)),
             // Text('${_currentTime}s', style: TextStyle(color: Colors.white,fontSize: 12)),
           ],
         ),
@@ -182,91 +157,304 @@ class _RootPageState extends State<RootPage> {
 
   Widget _goFind() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
-        width: 50,
-        height: 50,
+        width: 65,
+        height: 70,
         decoration: new BoxDecoration(
           // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.white.withOpacity(0.75),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Find', style: TextStyle(color: Colors.white, fontSize: 12)),
+            SizedBox(
+              height: 28,
+              width: 28,
+              child: InkWell(
+                highlightColor: Colors.transparent,
+                borderRadius: const BorderRadius.all(
+                    Radius.circular(32.0)),
+                onTap: () {
+                  print('Find');
+                  _jumpImgPage();
+                },
+                child: Center(
+                  child: Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                ),
+              ),
+            ),
+            Text('Find', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w300,fontSize: 14)),
             // Text('${_currentTime}s', style: TextStyle(color: Colors.white,fontSize: 12)),
           ],
         ),
       ),
     );
   }
+
+  Widget _homeCard() {
+    return Container(
+      width: 320,
+      height: 250,
+      decoration: new BoxDecoration(
+        // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+          color: Color.fromARGB(0, 57, 57, 57),
+          borderRadius: new BorderRadius.circular((10.0))),
+      child: Column(
+        children: [
+          Text(
+            'MUSE',
+            style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                height: 4,
+                fontWeight: FontWeight.w100,
+                fontSize: 28),
+          ),
+          Text(
+            'Fill the universe with romance.',
+            style: TextStyle(
+                wordSpacing: 2,
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontWeight: FontWeight.w100,
+                // fontStyle: FontStyle.italic,
+                fontSize: 22),
+          ),
+          Text(
+            '——浪漫将宇宙填满——',
+            style: TextStyle(
+                wordSpacing: 2,
+                height: 2,
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontWeight: FontWeight.w100,
+                // fontStyle: FontStyle.italic,
+                fontSize: 16),
+          ),
+          // Image.asset(
+          //   'images/yhy.png',
+          //   fit: BoxFit.cover,
+          //   width: 300,
+          //   height: 200,
+          // )
+        ],
+      ),
+    );
+  }
+
+  Widget _homePic() {
+    return Container(
+      // decoration: new BoxDecoration(
+      //   // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+      //     color: Color.fromARGB(255, 57, 57, 57),
+      //     borderRadius: new BorderRadius.circular((10.0))),
+      child: Stack(
+        children: [
+          // Image.asset(
+          //   'images/ccchhh.GIF',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          // ),
+          // Image.asset(
+          //   'images/hhh.png',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: MediaQuery.of(context).size.height,
+          // ),
+
+          Positioned(
+            bottom: 200,
+            right: (MediaQuery.of(context).size.width - 300) / 2,
+            child: Container(
+              child: Image.asset(
+                'images/yhy.png',
+                fit: BoxFit.contain,
+                width: 300,
+                // height: MediaQuery.of(context).size.height,
+              ),
+            ),
+          ),
+          Image.asset(
+            'images/mon.png',
+            fit: BoxFit.contain,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _homePic2() {
+    return Container(
+      // decoration: new BoxDecoration(
+      //   // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+      //     color: Color.fromARGB(255, 57, 57, 57),
+      //     borderRadius: new BorderRadius.circular((10.0))),
+      child: Stack(
+        children: [
+          // Image.asset(
+          //   'images/ccchhh.GIF',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          // ),
+          // Image.asset(
+          //   'images/hhh.png',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: MediaQuery.of(context).size.height,
+          // ),
+
+          Positioned(
+            bottom: 340,
+            left: 100,
+            child: Container(
+              height: 90,
+              decoration: new BoxDecoration(
+                // border: new Border.all(width: 2.0, color: Colors.red),
+                borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  'images/zqb1.png',
+                  fit: BoxFit.fitHeight,
+                  width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
+                ),
+              ),
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  Widget _homePic3() {
+    return Container(
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 130,
+            left: 170,
+            child: Text(
+                '@Authored by kirakira666',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 14)),
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  Widget _homePic4() {
+    return Container(
+      // decoration: new BoxDecoration(
+      //   // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+      //     color: Color.fromARGB(255, 57, 57, 57),
+      //     borderRadius: new BorderRadius.circular((10.0))),
+      child: Stack(
+        children: [
+          // Image.asset(
+          //   'images/ccchhh.GIF',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          // ),
+          // Image.asset(
+          //   'images/hhh.png',
+          //   fit: BoxFit.contain,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: MediaQuery.of(context).size.height,
+          // ),
+          Positioned(
+            bottom: 230,
+            left: 250,
+            child: Container(
+              height: 30,
+              width: 80,
+              decoration: new BoxDecoration(
+                color: Color(0xFFD0D4E2),
+                // border: new Border.all(width: 2.0, color: Colors.red),
+                borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                      '   Q&A',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 15)),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 290,
+            left: 250,
+            child: Container(
+                height: 30,
+                width: 80,
+                decoration: new BoxDecoration(
+
+                  color: Color(0xFFD0D4E2),
+                  // border: new Border.all(width: 2.0, color: Colors.red),
+                  borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                      '   建议',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 15)),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 170,
+            left: 250,
+            child: Container(
+              height: 30,
+              width: 80,
+              decoration: new BoxDecoration(
+
+                color: Color(0xFFD0D4E2),
+                // border: new Border.all(width: 2.0, color: Colors.red),
+                borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                      '   关于',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 15)),
+                ],
+              )
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
 }
 
-//
-// class _RootPageState extends State<RootPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     var animationWidth = 295.0;
-//     var animationHeight = 251.0;
-//     var animationWidthThirds = animationWidth / 3;
-//     var halfAnimationHeight = animationHeight / 2;
-//
-//     var activeAreas = [
-//
-//       ActiveArea(
-//         area: Rect.fromLTWH(0, 0, animationWidthThirds, halfAnimationHeight),
-//         debugArea: false,
-//         guardComingFrom: ['deactivate'],
-//         animationName: 'camera_tapped',
-//       ),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds, halfAnimationHeight),
-//           debugArea: false,
-//           guardComingFrom: ['deactivate'],
-//           animationName: 'pulse_tapped'),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds, halfAnimationHeight),
-//           debugArea: false,
-//           guardComingFrom: ['deactivate'],
-//           animationName: 'image_tapped'),
-//
-//       ActiveArea(
-//           area: Rect.fromLTWH(0, animationHeight / 2, animationWidth, animationHeight / 2),
-//           debugArea: false,
-//           animationsToCycle: ['activate', 'deactivate'],
-//           onAreaTapped: () {
-//             print('Button tapped!');
-//           })
-//
-//     ];
-//
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Flare Button Demo'),
-//       ),
-//       body: Container(
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//               begin: Alignment.topCenter,
-//               end: Alignment.bottomCenter,
-//               colors: [
-//                 Color(0x3fffeb3b),
-//                 Colors.orange,
-//               ]),
-//         ),
-//         child: Align(
-//           alignment: Alignment.bottomCenter,
-//           child: SmartFlareActor(
-//             width: animationWidth,
-//             height: animationHeight,
-//             filename: 'images/button-animation.flr',
-//             startingAnimation: 'deactivate',
-//             activeAreas: activeAreas,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

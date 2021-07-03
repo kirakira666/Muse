@@ -10,6 +10,8 @@ import 'package:muse/test.dart';
 import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_flare/actors/smart_flare_actor.dart';
+import 'package:smart_flare/models.dart';
 
 class ShareIdea extends StatefulWidget {
   const ShareIdea({Key? key}) : super(key: key);
@@ -33,54 +35,127 @@ class _ShareIdeaState extends State<ShareIdea> {
 
   @override
   Widget build(BuildContext context) {
+    var animationWidth = 295.0;
+    var animationHeight = 251.0;
+    var animationWidthThirds = animationWidth / 3;
+    var halfAnimationHeight = animationHeight / 2;
+
+    var activeAreas = [
+      ActiveArea(
+          area: Rect.fromLTWH(0, 0, animationWidthThirds, halfAnimationHeight),
+          debugArea: false,
+          guardComingFrom: ['deactivate'],
+          animationName: 'camera_tapped',
+          onAreaTapped: () {
+            _getActionSheet();
+            print('Camera tapped!');
+          }),
+      ActiveArea(
+          area: Rect.fromLTWH(animationWidthThirds, 0, animationWidthThirds,
+              halfAnimationHeight),
+          debugArea: false,
+          guardComingFrom: ['deactivate'],
+          animationName: 'pulse_tapped',
+          onAreaTapped: () {
+            print('Pulse tapped!');
+          }),
+      ActiveArea(
+          area: Rect.fromLTWH(animationWidthThirds * 2, 0, animationWidthThirds,
+              halfAnimationHeight),
+          debugArea: false,
+          guardComingFrom: ['deactivate'],
+          animationName: 'image_tapped',
+          onAreaTapped: () {
+            _getActionSheet();
+            print('Image tapped!');
+          }),
+      ActiveArea(
+          area: Rect.fromLTWH(
+              0, animationHeight / 2, animationWidth, animationHeight / 2),
+          debugArea: false,
+          animationsToCycle: ['activate', 'deactivate'],
+          onAreaTapped: () {
+            print('Button tapped!');
+          })
+    ];
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'hintText',
-              border: kInputBorder,
-              focusedBorder: kInputBorder,
-              enabledBorder: kInputBorder,
-              prefixIcon: Container(
-                width: kIconBoxSize,
-                height: kIconBoxSize,
-                alignment: Alignment.center,
+        body: Stack(
+      children: [
+        Positioned(
+          child: _rootBack(),
+        ),
+        Column(
+          children: <Widget>[
+            SizedBox(
+              height: 270,
+              child: Image.asset('images/yhy.png'),
+            ),
+            new Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                decoration: new BoxDecoration(
+                  // border: new Border.all(width: 2.0, color: Colors.red),
+                  color: Colors.white,
+                  borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: '分享你的灵感吧！',
+                    border: kInputBorder,
+                    focusedBorder: kInputBorder,
+                    enabledBorder: kInputBorder,
+                    prefixIcon: Container(
+                      width: kIconBoxSize,
+                      height: kIconBoxSize,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  obscuringCharacter: '*',
+                  obscureText: obscureText,
+                  style: kBodyTextStyle.copyWith(
+                    fontSize: 18,
+                  ),
+                  onChanged: (text) {
+                    if (obscureText) {
+                      print('pwd,' + text);
+                      content = text;
+                    } else {
+                      content = text;
+                      print('ema,' + text);
+                    }
+                  },
+                ),
               ),
             ),
-            obscuringCharacter: '*',
-            obscureText: obscureText,
-            style: kBodyTextStyle.copyWith(
-              fontSize: 18,
+            RaisedButton(
+              child: Text("提交"),
+              onPressed: () => {_pushDB()},
             ),
-            onChanged: (text) {
-              if (obscureText) {
-                print('pwd,' + text);
-                content = text;
-              } else {
-                content = text;
-                print('ema,' + text);
-              }
-            },
+            Text("----照片列表----"),
+            _imageList.isNotEmpty
+                ? Wrap(
+                    spacing: 10.0,
+                    children: _getImageList(),
+                  )
+                : Text("暂无内容")
+          ],
+        ),
+        Positioned(
+          bottom: 0,
+          left: 30,
+          child: Align(
+          alignment: Alignment.bottomCenter,
+          child: SmartFlareActor(
+            width: animationWidth,
+            height: animationHeight,
+            filename: 'images/button-animation.flr',
+            startingAnimation: 'deactivate',
+            activeAreas: activeAreas,
           ),
-          RaisedButton(
-            child: Text("拍照"),
-            onPressed: () => _getActionSheet(),
-          ),
-          RaisedButton(
-            child: Text("提交"),
-            onPressed: () => {_pushDB()},
-          ),
-          Text("----照片列表----"),
-          _imageList.isNotEmpty
-              ? Wrap(
-                  spacing: 10.0,
-                  children: _getImageList(),
-                )
-              : Text("暂无内容")
-        ],
-      ),
-    );
+        ),
+        )
+      ],
+    ));
   }
 
   Widget _ImageView(imgPath) {
@@ -311,5 +386,26 @@ class _ShareIdeaState extends State<ShareIdea> {
     //
     //   });
     // });
+  }
+
+  Widget _rootBack() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: new BoxDecoration(
+        // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+        color: Colors.black,
+      ),
+      child: Column(
+        children: [
+          Image.asset(
+            'images/star.GIF',
+            fit: BoxFit.cover,
+            // width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          )
+        ],
+      ),
+    );
   }
 }

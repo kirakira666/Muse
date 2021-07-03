@@ -159,7 +159,7 @@ class ColorPickState extends State<ColorPickView> {
     print(eventX);
     print(eventY);
     double x = eventX - (topLeftPosition.dx + radius + widget.padding);
-    double y = eventY-200 - (topLeftPosition.dy + radius + widget.padding);
+    double y = eventY-100 - (topLeftPosition.dy + radius + widget.padding);
     // print(x);
     // print(y);
     double r = sqrt(x * x + y * y);
@@ -178,7 +178,7 @@ class ColorPickState extends State<ColorPickView> {
 
   void _updateSelector(double eventX, double eventY) {
     //更新选中颜色值
-    eventY = eventY -200;
+    eventY = eventY -100;
     double r = sqrt(eventX * eventX + eventY * eventY);
     double x = eventX, y = eventY;
     if (r > radius) {
@@ -191,7 +191,7 @@ class ColorPickState extends State<ColorPickView> {
 
   Color getColorAtPoint(double eventX, double eventY) {
     //获取坐标在色盘中的颜色值
-    eventY = eventY-200;
+    eventY = eventY-100;
     double x = eventX - (topLeftPosition.dx + radius + widget.padding);
     double y = eventY - (topLeftPosition.dy + radius + widget.padding);
     double r = sqrt(x * x + y * y);

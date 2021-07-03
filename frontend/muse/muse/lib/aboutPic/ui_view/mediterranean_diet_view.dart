@@ -1,5 +1,6 @@
 // import 'dart:html';
 
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:muse/aboutPic/pic_app_theme.dart';
@@ -13,9 +14,9 @@ import 'glass_view.dart';
 class MediterranesnDietView extends StatelessWidget {
   final AnimationController animationController;
   final Animation<double> animation;
-
+  final File imgbk;
   const MediterranesnDietView(
-      {Key? key, required this.animationController, required this.animation})
+      {Key? key, required this.animationController, required this.animation, required this.imgbk})
       : super(key: key);
 
   @override
@@ -48,8 +49,9 @@ class MediterranesnDietView extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: PicAppTheme.white,
                       image: new DecorationImage(
-                          image: new NetworkImage(
-                              'https://www.nbfox.com/wp-content/uploads/2020/03/11/20200311181548-5e692ad4ae33c.jpg'),
+                          image: imgbk != null
+                              ? new FileImage(imgbk)
+                              : new FileImage(new File('/storage/emulated/0/DCIM/Screenshots/IMG_20210702_152213.jpg')),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(8.0),

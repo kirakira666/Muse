@@ -69,12 +69,13 @@ class RunningView extends StatelessWidget {
                                 children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                      left: 100,
+                                      left: 20,
                                       right: 16,
                                       top: 16,
+                                      bottom: 4
                                     ),
                                     child: Text(
-                                      "You're doing great!",
+                                      "Find more inspiration in Muse!",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontFamily:
@@ -91,18 +92,18 @@ class RunningView extends StatelessWidget {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  left: 100,
+                                  left: 30,
                                   bottom: 12,
                                   top: 4,
                                   right: 16,
                                 ),
                                 child: Text(
-                                  "Keep it up\nand stick to your plan!",
+                                  "Inspire your creative ideas!",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: PicAppTheme.fontName,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 10,
+                                    fontSize: 11,
                                     letterSpacing: 0.0,
                                     color: PicAppTheme.grey
                                         .withOpacity(0.5),
@@ -116,12 +117,12 @@ class RunningView extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: -16,
-                    left: 0,
+                    bottom: 16,
+                    right: 0,
                     child: SizedBox(
                       width: 110,
                       height: 110,
-                      child: Image.asset("assets/fitness_app/runner.png"),
+                      child: Image.asset("assets/fitness_app/zjb2.png"),
                     ),
                   )
                 ],

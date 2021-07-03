@@ -1,7 +1,8 @@
 import 'package:muse/app_theme.dart';
 import 'package:muse/custom_drawer/home_drawer.dart';
 import 'package:flutter/material.dart';
-
+import 'package:muse/storage_util.dart';
+String ttname='';
 class DrawerUserController extends StatefulWidget {
   const DrawerUserController({
     Key? key,
@@ -11,7 +12,7 @@ class DrawerUserController extends StatefulWidget {
     this.animatedIconData = AnimatedIcons.arrow_menu,
     this.menuView,
     required this.drawerIsOpen,
-    required this.screenIndex,
+    required this.screenIndex, required this.username,
   }) : super(key: key);
 
   final double drawerWidth;
@@ -21,6 +22,7 @@ class DrawerUserController extends StatefulWidget {
   final AnimatedIconData animatedIconData;
   final Widget? menuView;
   final DrawerIndex screenIndex;
+  final String username;
 
   @override
   _DrawerUserControllerState createState() => _DrawerUserControllerState();
@@ -35,6 +37,7 @@ class _DrawerUserControllerState extends State<DrawerUserController> with Ticker
 
   @override
   void initState() {
+    getname();
     animationController = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
     iconAnimationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 0));
     iconAnimationController..animateTo(1.0, duration: const Duration(milliseconds: 0), curve: Curves.fastOutSlowIn);
@@ -194,8 +197,18 @@ class _DrawerUserControllerState extends State<DrawerUserController> with Ticker
           try {
             widget.onDrawerCall(indexType);
           } catch (e) {}
-        },
+        }, username: ttname,
       ),
     );
+  }
+
+  Future<void> getname() async {
+    String a = await StorageUtil.getStringItem('username');
+    if(a ==null){
+      ttname = '未登录';
+    }else{
+      ttname =a;
+    }
+
   }
 }
