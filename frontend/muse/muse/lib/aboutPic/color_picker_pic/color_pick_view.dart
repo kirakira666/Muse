@@ -41,11 +41,10 @@ class ColorPickState extends State<ColorPickView> {
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery.of(context).size;
-    widget.size = screenSize;
-    widget.size = screenSize;
+    // screenSize = MediaQuery.of(context).size;
+    screenSize = widget.size;
     widget.selectRadius = 10;
-    widget.padding = 40;
+    widget.padding = 80;
     widget.selectRingColor = Colors.black;
     assert(
     widget.size == null ||
@@ -102,12 +101,12 @@ class ColorPickState extends State<ColorPickView> {
 
           ),
           Positioned(
-            top: MediaQuery.of(context).padding.top+300,
-            left: (MediaQuery.of(context).size.width-100)/2,
+            top: MediaQuery.of(context).padding.top+80,
+            left: (MediaQuery.of(context).size.width-100)/2-10,
             child: Container(
               color: currentColor,
-              height: 100,
-              width: 100,
+              height: 20,
+              width: 20,
               child: SizedBox(),
             ),
           ),
@@ -159,7 +158,7 @@ class ColorPickState extends State<ColorPickView> {
     print(eventX);
     print(eventY);
     double x = eventX - (topLeftPosition.dx + radius + widget.padding);
-    double y = eventY-100 - (topLeftPosition.dy + radius + widget.padding);
+    double y = eventY - (topLeftPosition.dy + radius + widget.padding);
     // print(x);
     // print(y);
     double r = sqrt(x * x + y * y);
@@ -178,7 +177,7 @@ class ColorPickState extends State<ColorPickView> {
 
   void _updateSelector(double eventX, double eventY) {
     //更新选中颜色值
-    eventY = eventY -100;
+    eventY = eventY;
     double r = sqrt(eventX * eventX + eventY * eventY);
     double x = eventX, y = eventY;
     if (r > radius) {
@@ -191,7 +190,7 @@ class ColorPickState extends State<ColorPickView> {
 
   Color getColorAtPoint(double eventX, double eventY) {
     //获取坐标在色盘中的颜色值
-    eventY = eventY-100;
+    eventY = eventY;
     double x = eventX - (topLeftPosition.dx + radius + widget.padding);
     double y = eventY - (topLeftPosition.dy + radius + widget.padding);
     double r = sqrt(x * x + y * y);

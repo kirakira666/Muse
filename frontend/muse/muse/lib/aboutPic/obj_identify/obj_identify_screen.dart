@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 
-// import 'package:muse/aboutPic/color_picker_pic/color_pick_screen.dart';
+
 import 'package:muse/aboutPic/color_picker_pic/water_view.dart';
 
 import 'package:tflite/tflite.dart';
@@ -41,10 +41,10 @@ CloudBaseDatabase db = CloudBaseDatabase(core);
 List random = [];
 List<String> images = [
   "images/1.gif",
-  "images/2.gif",
-  "images/3.gif",
-  "images/4.gif",
-  "images/5.gif"
+  "images/1.gif",
+  "images/1.gif",
+  "images/1.gif",
+  "images/1.gif"
 ];
 
 List<String> title = ["1", "2", "3", "4", "5"];

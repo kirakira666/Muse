@@ -324,7 +324,7 @@ class _ShareIdeaState extends State<ShareIdea> {
     }
     var title = 1;
     db.collection('idea').add({
-      'title': '',
+      'like': 0,
       'popname': token,
       'time': time,
       'url': urlL,

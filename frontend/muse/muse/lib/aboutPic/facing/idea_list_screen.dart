@@ -104,6 +104,7 @@ class _IdeaListScreenState extends State<IdeaListScreen>
         String username = ideaList[ideaList.length - i - 1]['popname'];
         String picUrl = 'empty';
         print(ideaList[ideaList.length - i - 1]['popname']);
+        var ideaItem = ideaList[ideaList.length - i - 1];
         if(ideaList[ideaList.length - i - 1]['url'] == null||ideaList[ideaList.length - i - 1]['url'].length == 0){
           picUrl = 'empty';
         }else{
@@ -124,7 +125,7 @@ class _IdeaListScreenState extends State<IdeaListScreen>
                     Interval((1 / 5) * 2, 1.0, curve: Curves.fastOutSlowIn))),
             animationController: widget.animationController,
             nameJJ: content,
-            username: username, picUrl: picUrl,
+            username: username, picUrl: picUrl, urlList: ideaItem['url'], like: ideaItem['like'], id: ideaItem['_id'],
           ),
         );
       }

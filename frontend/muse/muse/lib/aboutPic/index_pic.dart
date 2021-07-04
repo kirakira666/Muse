@@ -1,13 +1,11 @@
-import 'package:muse/aboutPic/color_picker_pic/color_pick_screen.dart';
-import 'package:muse/aboutPic/facing/face_screen.dart';
 import 'package:muse/aboutPic/models/tabIcon_data.dart';
-import 'package:muse/aboutPic/facing/facing_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:muse/aboutPic/bottom_navigation_view/bottom_bar_view.dart';
 import 'package:muse/aboutPic/obj_identify/obj_identify_screen.dart';
 
 import 'package:muse/aboutPic/pic_app_theme.dart';
-import 'package:muse/aboutPic/random_pic/facing_identify.dart';
+import 'package:muse/aboutPic/facing/facing_identify.dart';
 import 'package:muse/aboutPic/random_pic/random_pic.dart';
 import 'package:muse/test.dart';
 

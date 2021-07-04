@@ -40,10 +40,10 @@ class ColorPickPage extends StatefulWidget {
   _ColorPickPageState createState() => _ColorPickPageState();
 }
 
-
+var currentPage = random.length - 1.0;
 class _ColorPickPageState extends State<ColorPickPage> {
   Color currentColor = Color(0xff0000ff);
-  var currentPage = random.length - 1.0;
+
   @override
   void initState() {
     super.initState();
@@ -104,47 +104,146 @@ class _ColorPickPageState extends State<ColorPickPage> {
     //     ],
     //   ),
     // ));
-    stackChildren.add(SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 40,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Color for Art!",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 40.0,
-                      fontFamily: "Calibre-Semibold",
-                      letterSpacing: 1.0,
-                    )),
-                SizedBox(
-                  height: 40,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.add_box,
-                      size: 30.0,
-                      color: Colors.black38,
+    // stackChildren.add(SingleChildScrollView(
+    //   child: Column(
+    //     children: <Widget>[
+    //       SizedBox(
+    //         height: 40,
+    //       ),
+    //       Padding(
+    //         padding: EdgeInsets.symmetric(horizontal: 20.0),
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: <Widget>[
+    //             Text("Color for Art!",
+    //                 style: TextStyle(
+    //                   color: Colors.black,
+    //                   fontSize: 40.0,
+    //                   fontFamily: "Calibre-Semibold",
+    //                   letterSpacing: 1.0,
+    //                 )),
+    //             SizedBox(
+    //               height: 40,
+    //               child: IconButton(
+    //                 icon: Icon(
+    //                   Icons.add_box,
+    //                   size: 30.0,
+    //                   color: Colors.black38,
+    //                 ),
+    //                 onPressed: () {
+    //                   print('照片');
+    //                 },
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //       Positioned(
+    //         top: 0,
+    //         child: ColorPickView(
+    //           selectColor: Color(0xff0000ff),
+    //           selectRadius: 600,
+    //           selectRingColor: Color(0xff0000ff),
+    //           size: Size(300, 300),
+    //           padding: 10,
+    //           selectColorCallBack: (Color color) {
+    //
+    //             currentColor = color;
+    //             print(currentColor);
+    //             return color;
+    //           },
+    //         ),
+    //       ),
+    //
+    //
+    //       Stack(
+    //         children: <Widget>[
+    //           CardScrollWidget(currentPage),
+    //           Positioned.fill(
+    //             child: PageView.builder(
+    //               itemCount: random.length,
+    //               controller: controller,
+    //               reverse: true,
+    //               itemBuilder: (context, index) {
+    //                 return Container();
+    //               },
+    //             ),
+    //           )
+    //         ],
+    //       ),
+    //       SizedBox(
+    //         height: 100,
+    //       ),
+    //     ],
+    //   ),
+    // ));
+    return Scaffold(
+      body: Stack(
+        children: [
+          Column(
+            children: <Widget>[
+              SizedBox(
+                height: 40,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Color for Art!",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 39.0,
+                          fontFamily: "Calibre-Semibold",
+                          letterSpacing: 1.0,
+                        )),
+                    SizedBox(
+                      height: 40,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.add_box,
+                          size: 30.0,
+                          color: Colors.black38,
+                        ),
+                        onPressed: () {
+                          print('照片');
+                        },
+                      ),
                     ),
-                    onPressed: () {
-                      print('照片');
-                    },
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 220,
+              ),
+
+
+              Stack(
+                children: <Widget>[
+                  CardScrollWidget(currentPage),
+                  Positioned.fill(
+                    child: PageView.builder(
+                      itemCount: random.length,
+                      controller: controller,
+                      reverse: true,
+                      itemBuilder: (context, index) {
+                        return Container();
+                      },
+                    ),
+                  )
+                ],
+              ),
+
+            ],
           ),
           Positioned(
-            top: 0,
+            // top: 50,
+            // right: MediaQuery.of(context).size.width,
             child: ColorPickView(
               selectColor: Color(0xff0000ff),
-              selectRadius: 600,
+              selectRadius: 800,
               selectRingColor: Color(0xff0000ff),
-              size: Size(300, 300),
+              size: Size(400, 400),
               padding: 10,
               selectColorCallBack: (Color color) {
 
@@ -154,33 +253,10 @@ class _ColorPickPageState extends State<ColorPickPage> {
               },
             ),
           ),
-
-
-          Stack(
-            children: <Widget>[
-              CardScrollWidget(currentPage),
-              Positioned.fill(
-                child: PageView.builder(
-                  itemCount: random.length,
-                  controller: controller,
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    return Container();
-                  },
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 100,
-          ),
+          // SingleChildScrollView(
+          //   child: ,
+          // )
         ],
-      ),
-    ));
-    callPic();
-    return Scaffold(
-      body: Stack(
-        children: stackChildren,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: pnnn,
@@ -192,9 +268,6 @@ class _ColorPickPageState extends State<ColorPickPage> {
     );
   }
 
-  void callPic() {
-
-  }
 
   Future<void> pnnn() async {
     CloudBaseAuthState authState = await auth.getAuthState();
@@ -225,6 +298,7 @@ class _ColorPickPageState extends State<ColorPickPage> {
     }).get().then((res) {
       print(res);
       random = res.data;
+
     });
     print(currentColor.toString());
   }
@@ -247,6 +321,8 @@ class _ColorPickPageState extends State<ColorPickPage> {
     }
     return val;
   }
+
+
 }
 class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
   FloatingActionButtonLocation location;
@@ -285,9 +361,12 @@ class CardScrollWidget extends StatelessWidget {
         var horizontalInset = primaryCardLeft / 2;
 
         List<Widget> cardList = [];
-        if(random==[]){
+        print(random);
+        print('random');
+        if(random==null){
           random = random1;
         }
+        // random = random1;
         for (var i = 0; i < random.length; i++) {
           var delta = i - currentPage;
           bool isOnRight = delta > 0;

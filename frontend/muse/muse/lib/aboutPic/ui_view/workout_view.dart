@@ -1,16 +1,20 @@
 // import 'package:best_flutter_ui_templates/main.dart';
 import 'package:flutter/material.dart';
+import 'package:muse/detail.dart';
 import '../pic_app_theme.dart';
 import 'glass_view.dart';
-
+var context1;
 class WorkoutView extends StatelessWidget {
   final AnimationController animationController;
   final Animation<double> animation;
   final String nameJJ;
   final String username;
   final String picUrl;
+  final String id;
+  final int like;
+  final List urlList;
 
-  const WorkoutView({Key? key, required this.animationController, required this.animation, required this.nameJJ, required this.username, required this.picUrl})
+  const WorkoutView({Key? key, required this.animationController, required this.animation, required this.nameJJ, required this.username, required this.picUrl, required this.urlList, required this.like, required this.id})
       : super(key: key);
 
   @override
@@ -38,6 +42,7 @@ class WorkoutView extends StatelessWidget {
   }
 
   Widget hhbuilder(BuildContext context, Widget? child) {
+    context1 = context;
     return FadeTransition(
       opacity: animation,
       child: new Transform(
@@ -108,7 +113,7 @@ class WorkoutView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 4),
                           child: Icon(
-                            Icons.timer,
+                            Icons.favorite,
                             color: PicAppTheme.white,
                             size: 16,
                           ),
@@ -116,7 +121,7 @@ class WorkoutView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 4.0),
                           child: Text(
-                            '68 min',
+                            like.toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: PicAppTheme.fontName,
@@ -142,14 +147,18 @@ class WorkoutView extends StatelessWidget {
                                   blurRadius: 8.0),
                             ],
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Icon(
-                              Icons.arrow_right,
-                              color: HexColor("#6F56E8"),
-                              size: 44,
+                          child: InkWell(
+                            onTap: (){print('todetail');toDetail();},
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Icon(
+                                Icons.arrow_right,
+                                color: HexColor("#6F56E8"),
+                                size: 44,
+                              ),
                             ),
                           ),
+
                         )
                       ],
                     ),
@@ -161,6 +170,14 @@ class WorkoutView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void toDetail() {
+    Navigator.push(
+        context1,
+        MaterialPageRoute(
+          builder: (BuildContext context) => Detail(popName: username, urlList: urlList, context: nameJJ,id:id),
+        ));
   }
 
 
