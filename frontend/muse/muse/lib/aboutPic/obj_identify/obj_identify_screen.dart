@@ -8,10 +8,7 @@ import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
-
-
-import 'package:muse/aboutPic/color_picker_pic/water_view.dart';
-
+import 'package:muse/utils/cloud_utils.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -24,14 +21,14 @@ const String deeplab = "DeepLab";
 const String posenet = "PoseNet";
 CloudBaseCore core = CloudBaseCore.init({
   // 填写您的云开发 env
-  'env': 'zhuji-cloudbase-3g9902drd47633ab',
+  'env': cloudInfo.env,
   // 填写您的移动应用安全来源凭证
   // 生成凭证的应用标识必须是 Android 包名或者 iOS BundleID
   'appAccess': {
     // 凭证
-    'key': 'e6f33326a0d40fecfc67ffc2877255bc',
+    'key': cloudInfo.accessKey,
     // 版本
-    'version': '1'
+    'version': cloudInfo.accessVersion
   },
   // 请求超时时间（选填）
   'timeout': 3000
@@ -40,11 +37,11 @@ CloudBaseAuth auth = CloudBaseAuth(core);
 CloudBaseDatabase db = CloudBaseDatabase(core);
 List random = [];
 List<String> images = [
-  "images/1.gif",
-  "images/1.gif",
-  "images/1.gif",
-  "images/1.gif",
-  "images/1.gif"
+  "assets/image/1.gif",
+  "assets/image/1.gif",
+  "assets/image/1.gif",
+  "assets/image/1.gif",
+  "assets/image/1.gif"
 ];
 
 List<String> title = ["1", "2", "3", "4", "5"];
@@ -300,9 +297,9 @@ class _ObjIdentifyScreenState extends State<ObjIdentifyScreen>
     // );
     setState(() {
       print(recognitions![0]['detectedClass']);
-      String x = recognitions![0]['detectedClass'];
+      String x = recognitions[0]['detectedClass'];
       objImg(x);
-      _recognitions = recognitions!;
+      _recognitions = recognitions;
     });
     int endTime = new DateTime.now().millisecondsSinceEpoch;
     print("Inference took ${endTime - startTime}ms");
@@ -500,7 +497,7 @@ class _ObjIdentifyScreenState extends State<ObjIdentifyScreen>
         left: (size.width - 240 * (_imageWidth / _imageHeight)) / 2,
         height: 240,
         child:
-            _image == null ? Image.asset('images/1.gif') : Image.file(_image!),
+            _image == null ? Image.asset('assets/image/1.gif') : Image.file(_image!),
       ));
     }
 
@@ -643,7 +640,7 @@ class _ObjIdentifyScreenState extends State<ObjIdentifyScreen>
       child: Column(
         children: [
           Image.asset(
-            'images/star.GIF',
+            'assets/image/star.GIF',
             fit: BoxFit.cover,
             // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,

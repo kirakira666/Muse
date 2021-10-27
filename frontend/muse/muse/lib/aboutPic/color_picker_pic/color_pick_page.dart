@@ -4,19 +4,22 @@ import 'package:cloudbase_auth/cloudbase_auth.dart';
 import 'package:cloudbase_core/cloudbase_core.dart';
 import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:flutter/material.dart';
+// import 'package:muse/aboutPic/color_picker_pic/color_thief_flutter.dart';
+// import 'package:muse/show/widgets/login_widget.dart';
+import 'package:muse/utils/cloud_utils.dart';
 
 import 'color_pick_view.dart';
 
 CloudBaseCore core = CloudBaseCore.init({
   // 填写您的云开发 env
-  'env': 'zhuji-cloudbase-3g9902drd47633ab',
+  'env': cloudInfo.env,
   // 填写您的移动应用安全来源凭证
   // 生成凭证的应用标识必须是 Android 包名或者 iOS BundleID
   'appAccess': {
     // 凭证
-    'key': 'e6f33326a0d40fecfc67ffc2877255bc',
+    'key': cloudInfo.accessKey,
     // 版本
-    'version': '1'
+    'version': cloudInfo.accessVersion
   },
   // 请求超时时间（选填）
   'timeout': 3000
@@ -447,7 +450,51 @@ class CardScrollWidget extends StatelessWidget {
       }),
     );
   }
-
+  // void _getPaint() {
+  //   int x = Random().nextInt(18750);
+  //   //数据库连接
+  //   var _ = db.command;
+  //   var re;
+  //   db.collection('artwork').where({
+  //     'index': _.eq(x)
+  //   }).get().then((res) {
+  //     re = res.data[0]['picUrl'];
+  //     print(res.data);
+  //     print(re);
+  //     final imageProvider = NetworkImage(re);
+  //     // 提取网络图片的主要颜色
+  //     getColorFromUrl(re).then((color) {
+  //       print('主要颜色');
+  //       print(color); // [R,G,B]
+  //       backR = color[0];
+  //       backG = color[1];
+  //       backB = color[2];
+  //     });
+  //     // 提取网络图片调色板
+  //     getPaletteFromUrl(re).then((palette) {
+  //       print('调色板');
+  //       print(palette); // [[R,G,B]]
+  //     });
+  //     // 提取网络图片的实际图片
+  //     getImageFromUrl(re).then((image) {
+  //       print(image); // Image
+  //     });
+  //     // 提取 ImageProvider 的实际图片
+  //     getImageFromProvider(imageProvider).then((image) {
+  //       print(image); // Image
+  //       // 从图片提取主要颜色
+  //       getColorFromImage(image).then((color) {
+  //         print('主要颜色');
+  //         print(color); // [R,G,B]
+  //       });
+  //       // 从图片提取调色板
+  //       getPaletteFromImage(image).then((palette) {
+  //         print('调色板');
+  //         print(palette); // [[R,G,B]]
+  //       });
+  //     });
+  //   });
+  // }
   String ll(i) {
     if (i == 1) {
       return '1st';

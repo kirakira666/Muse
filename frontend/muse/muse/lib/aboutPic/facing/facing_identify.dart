@@ -8,8 +8,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:muse/aboutPic/color_picker_pic/water_view.dart';
-import 'package:muse/aboutPic/facing/encode_util.dart';
+import 'package:muse/utils/cloud_utils.dart';
+import 'package:muse/widgets/water_view.dart';
+import 'package:muse/utils/encode_util.dart';
 class CustomIcons {
   static const IconData menu = IconData(0xe900, fontFamily: "CustomIcons");
   static const IconData option = IconData(0xe902, fontFamily: "CustomIcons");
@@ -17,11 +18,11 @@ class CustomIcons {
 List random = [
 ];
 List<String> images = [
-  "images/1.gif",
-  "images/1.gif",
-  "images/1.gif",
-  "images/1.gif",
-  "images/1.gif"
+  "assets/image/1.gif",
+  "assets/image/1.gif",
+  "assets/image/1.gif",
+  "assets/image/1.gif",
+  "assets/image/1.gif"
 ];
 
 List<String> title = [
@@ -33,14 +34,14 @@ List<String> title = [
 ];
 CloudBaseCore core = CloudBaseCore.init({
   // 填写您的云开发 env
-  'env': 'zhuji-cloudbase-3g9902drd47633ab',
+  'env': cloudInfo.env,
   // 填写您的移动应用安全来源凭证
   // 生成凭证的应用标识必须是 Android 包名或者 iOS BundleID
   'appAccess': {
     // 凭证
-    'key': 'e6f33326a0d40fecfc67ffc2877255bc',
+    'key': cloudInfo.accessKey,
     // 版本
-    'version': '1'
+    'version': cloudInfo.accessVersion
   },
   // 请求超时时间（选填）
   'timeout': 3000
@@ -188,7 +189,7 @@ class _FacingIdentifyState extends State<FacingIdentify> with TickerProviderStat
                       )
                     ],
                   ),
-
+                  //相似度算法待完善，展示静态数据
                   WaterView(
                     mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
                         CurvedAnimation(
@@ -220,7 +221,7 @@ class _FacingIdentifyState extends State<FacingIdentify> with TickerProviderStat
       child: Column(
         children: [
           Image.asset(
-            'images/star.GIF',
+            'assets/image/star.GIF',
             fit: BoxFit.cover,
             // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -242,7 +243,7 @@ class _FacingIdentifyState extends State<FacingIdentify> with TickerProviderStat
         child: SizedBox(
           height: 300,
           child: Image.asset(
-            'images/1.gif',
+            'assets/image/1.gif',
             fit: BoxFit.cover,
             width: 300.0,
             height: 260.0,
