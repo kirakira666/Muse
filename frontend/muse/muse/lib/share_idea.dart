@@ -5,13 +5,15 @@ import 'package:cloudbase_storage/cloudbase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:muse/storage_util.dart';
-import 'package:muse/test.dart';
+import 'package:muse/utils/storage_util.dart';
+import 'package:muse/show/navigation.dart';
 import 'package:muse/theme/app_size.dart';
 import 'package:muse/theme/app_style.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_flare/actors/smart_flare_actor.dart';
 import 'package:smart_flare/models.dart';
+
+import 'package:muse/utils/cloud_utils.dart';
 
 class ShareIdea extends StatefulWidget {
   const ShareIdea({Key? key}) : super(key: key);
@@ -88,7 +90,7 @@ class _ShareIdeaState extends State<ShareIdea> {
           children: <Widget>[
             SizedBox(
               height: 270,
-              child: Image.asset('images/yhy.png'),
+              child: Image.asset('assets/image/yhy.png'),
             ),
             new Padding(
               padding: const EdgeInsets.all(15.0),
@@ -148,7 +150,7 @@ class _ShareIdeaState extends State<ShareIdea> {
           child: SmartFlareActor(
             width: animationWidth,
             height: animationHeight,
-            filename: 'images/button-animation.flr',
+            filename: 'assets/image/button-animation.flr',
             startingAnimation: 'deactivate',
             activeAreas: activeAreas,
           ),
@@ -271,14 +273,14 @@ class _ShareIdeaState extends State<ShareIdea> {
   Future<void> _pushDB() async {
     CloudBaseCore core = CloudBaseCore.init({
       // 填写您的云开发 env
-      'env': 'zhuji-cloudbase-3g9902drd47633ab',
+      'env': cloudInfo.env,
       // 填写您的移动应用安全来源凭证
       // 生成凭证的应用标识必须是 Android 包名或者 iOS BundleID
       'appAccess': {
         // 凭证
-        'key': 'e6f33326a0d40fecfc67ffc2877255bc',
+        'key': cloudInfo.accessKey,
         // 版本
-        'version': '1'
+        'version': cloudInfo.accessVersion
       },
       // 请求超时时间（选填）
       'timeout': 3000
@@ -334,7 +336,8 @@ class _ShareIdeaState extends State<ShareIdea> {
       if (res.id == null) {
         print('错误');
         var cloudUrl =
-            'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
+            cloudInfo.cloudUrl+time.toString();
+            // 'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
         Fluttertoast.showToast(
             msg: "发表失败！",
             toastLength: Toast.LENGTH_SHORT,
@@ -361,7 +364,8 @@ class _ShareIdeaState extends State<ShareIdea> {
       }
     }).catchError((e) async {
       var cloudUrl =
-          'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
+          cloudInfo.cloudUrl+time.toString();
+          // 'cloud://zhuji-cloudbase-3g9902drd47633ab.7a68-zhuji-cloudbase-3g9902drd47633ab-1305329525/$time';
       CloudBaseStorageRes<List<DeleteMetadata>> res =
           await storage.deleteFiles([cloudUrl]);
       print(res.data[0]);
@@ -399,7 +403,7 @@ class _ShareIdeaState extends State<ShareIdea> {
       child: Column(
         children: [
           Image.asset(
-            'images/star.GIF',
+            'assets/image/star.GIF',
             fit: BoxFit.cover,
             // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,

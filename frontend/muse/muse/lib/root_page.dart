@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:muse/test.dart';
-import 'package:smart_flare/actors/pan_flare_actor.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:smart_flare/actors/smart_flare_actor.dart';
-import 'package:smart_flare/enums.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:smart_flare/models.dart';
-
+import 'package:muse/show/navigation.dart';
 import 'aboutPic/index_pic.dart';
 
 class RootPage extends StatefulWidget {
@@ -78,16 +69,6 @@ class _RootPageState extends State<RootPage> {
               },
             ),
           ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: SmartFlareActor(
-          //     width: animationWidth,
-          //     height: animationHeight,
-          //     filename: 'images/button-animation.flr',
-          //     startingAnimation: 'deactivate',
-          //     activeAreas: activeAreas,
-          //   ),
-          // ),
         ],
       ),
     );
@@ -104,7 +85,7 @@ class _RootPageState extends State<RootPage> {
       child: Column(
         children: [
           Image.asset(
-            'images/star.GIF',
+            'assets/image/star.GIF',
             fit: BoxFit.cover,
             // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -269,7 +250,7 @@ class _RootPageState extends State<RootPage> {
             right: (MediaQuery.of(context).size.width - 300) / 2,
             child: Container(
               child: Image.asset(
-                'images/yhy.png',
+                'assets/image/yhy.png',
                 fit: BoxFit.contain,
                 width: 300,
                 // height: MediaQuery.of(context).size.height,
@@ -277,7 +258,7 @@ class _RootPageState extends State<RootPage> {
             ),
           ),
           Image.asset(
-            'images/mon.png',
+            'assets/image/mon.png',
             fit: BoxFit.contain,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -318,7 +299,7 @@ class _RootPageState extends State<RootPage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
-                  'images/zqb1.png',
+                  'assets/image/zqb1.png',
                   fit: BoxFit.fitHeight,
                   width: MediaQuery.of(context).size.width,
                   // height: MediaQuery.of(context).size.height,
@@ -354,23 +335,8 @@ class _RootPageState extends State<RootPage> {
 
   Widget _homePic4() {
     return Container(
-      // decoration: new BoxDecoration(
-      //   // border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
-      //     color: Color.fromARGB(255, 57, 57, 57),
-      //     borderRadius: new BorderRadius.circular((10.0))),
       child: Stack(
         children: [
-          // Image.asset(
-          //   'images/ccchhh.GIF',
-          //   fit: BoxFit.contain,
-          //   width: MediaQuery.of(context).size.width,
-          // ),
-          // Image.asset(
-          //   'images/hhh.png',
-          //   fit: BoxFit.contain,
-          //   width: MediaQuery.of(context).size.width,
-          //   height: MediaQuery.of(context).size.height,
-          // ),
           Positioned(
             bottom: 230,
             left: 250,

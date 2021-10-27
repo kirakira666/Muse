@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-
-// import 'package:color_thief_flutter/color_thief_flutter.dart';
-import 'package:muse/utils.dart';
+import 'package:muse/utils/color_utils.dart';
 
 void main() {
 

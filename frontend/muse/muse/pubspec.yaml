@@ -74,9 +74,8 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - images/
     - assets/icons/
-    - assets/fitness_app/
+    - assets/image/
     - assets/yolov2_tiny.tflite
     - assets/yolov2_tiny.txt
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,9 +1,8 @@
 import 'dart:math' as math;
-import 'package:muse/aboutPic/pic_app_theme.dart';
+import 'package:muse/theme/pic_app_theme.dart';
 import 'package:muse/aboutPic/models/tabIcon_data.dart';
-import 'package:muse/aboutPic/ui_view/glass_view.dart';
+import 'package:muse/widgets/glass_view.dart';
 import 'package:flutter/material.dart';
-import '../models/tabIcon_data.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView(
