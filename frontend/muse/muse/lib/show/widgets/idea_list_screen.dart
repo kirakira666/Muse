@@ -8,7 +8,7 @@ import 'package:muse/widgets/title_view.dart';
 import 'package:muse/widgets/single_idea_view.dart';
 import 'package:flutter/material.dart';
 import 'package:muse/show/welcome_page.dart';
-import 'package:muse/share_idea.dart';
+import 'package:muse/show/share_idea.dart';
 import 'package:muse/utils/cloud_utils.dart';
 import 'package:smart_flare/smart_flare.dart';
 
